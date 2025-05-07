@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZENITH | About Me</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="loader"></div>
+    </div>
+    <div class="cursor-follower"></div>
+    <div class="particles-container"></div>
+    <div class="globe-container">
+      <canvas id="globe"></canvas>
+    </div>
+    <nav>
+      <div class="container">
+        <div class="logo">ZENITH</div>
+        <div class="nav-links">
+          <a href="#home" class="nav-link" aria-label="Go to Home section"
+            ><span data-text="Home">Home</span></a
+          >
+          <a href="#about" class="nav-link" aria-label="Go to About section"
+            ><span data-text="About">About</span></a
+          >
+          <a href="#skills" class="nav-link" aria-label="Go to Skills section"
+            ><span data-text="Skills">Skills</span></a
+          >
+          <a href="#projects" class="nav-link" aria-label="Go to Projects section"
+            ><span data-text="Projects">Projects</span></a
+          >
+          <a href="#contact" class="nav-link" aria-label="Go to Contact section"
+            ><span data-text="Contact">Contact</span></a
+          >
+        </div>
+        <div class="menu-toggle" aria-label="Toggle navigation menu">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+    </nav>
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="text-reveal">I'm Dontae Mast</span>
+          </h1>
+          <h2 class="hero-subtitle">Digital Innovator & Creative Developer</h2>
+          <div class="hero-buttons">
+            <button class="cta-button primary-btn btn-glow">Explore My Work</button>
+            <button class="cta-button secondary-btn btn-glow">Connect With Me</button>
+          </div>
+        </div>
+        <div class="scroll-indicator">
+          <span>Scroll Down</span>
+          <div class="mouse">
+            <div class="wheel"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">WHO AM I</span>
+          <h2 class="section-title">About Me</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="about-content">
+          <div class="about-image">
+            <div class="image-wrapper">
+              <img src="/api/placeholder/400/320" alt="Profile Image of Dontae Mast" />
+            </div>
+            <div class="about-shapes">
+              <div class="shape shape-1"></div>
+              <div class="shape shape-2"></div>
+              <div class="shape shape-3"></div>
+            </div>
+          </div>
+          <div class="about-text">
+            <div class="bio-tabs">
+              <div class="tab active" data-tab="story">My Story</div>
+              <div class="tab" data-tab="experience">Experience</div>
+              <div class="tab" data-tab="education">Education</div>
+            </div>
+            <div class="tab-content active" id="story">
+              <p>
+                I'm a visionary developer with a passion for creating cutting-edge digital
+                experiences that push the boundaries of what's possible on the web.
+              </p>
+              <p>
+                With over 8 years of experience in front-end and back-end development, I
+                blend technical expertise with creative design to build immersive,
+                user-centric applications that leave a lasting impression.
+              </p>
+              <p>
+                My approach combines innovative technology with thoughtful design
+                principles to create digital solutions that are not just functional, but
+                extraordinary.
+              </p>
+            </div>
+            <div class="tab-content" id="experience">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-date">2022 - Present</div>
+                  <div class="timeline-content">
+                    <h4>Senior Developer</h4>
+                    <p>TechNova Solutions</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2019 - 2022</div>
+                  <div class="timeline-content">
+                    <h4>Web Developer</h4>
+                    <p>Digital Dynamics</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2017 - 2019</div>
+                  <div class="timeline-content">
+                    <h4>Junior Developer</h4>
+                    <p>Creative Coders</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-content" id="education">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-date">2015 - 2017</div>
+                  <div class="timeline-content">
+                    <h4>Master's in Computer Science</h4>
+                    <p>Tech University</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2011 - 2015</div>
+                  <div class="timeline-content">
+                    <h4>Bachelor's in Web Development</h4>
+                    <p>Digital Arts College</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number" data-count="120">0</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="15">0</div>
+            <div class="stat-label">Awards Won</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="8">0</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="65">0</div>
+            <div class="stat-label">Happy Clients</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="skills" class="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">WHAT I DO</span>
+          <h2 class="section-title">My Skills</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="skills-container">
+          <div class="skills-tabs">
+            <div class="skill-tab active" data-category="development">Development</div>
+            <div class="skill-tab" data-category="design">Design</div>
+            <div class="skill-tab" data-category="other">Other</div>
+          </div>
+            <div class="skills-grid active" id="development">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3 class="skill-title">C++</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="85%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3 class="skill-title">C#</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="88%"></div> 
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i> 
+                    </div>
+                    <h3 class="skill-title">Python</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="92%"></div> 
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-java"></i> <!-- Java icon -->
+                    </div>
+                    <h3 class="skill-title">Java</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="80%"></div> 
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3 class="skill-title">JavaScript</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="95%"></div>
+                    </div>
+                </div>
+                 <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i> 
+                    </div>
+                    <h3 class="skill-title">TypeScript</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="90%"></div> 
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i> 
+                    </div>
+                    <h3 class="skill-title">HTML</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="98%"></div> 
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-css3-alt"></i> 
+                    </div>
+                    <h3 class="skill-title">CSS</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="97%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-react"></i> 
+                    </div>
+                    <h3 class="skill-title">React</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="93%"></div> 
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fab fa-node-js"></i> 
+                    </div>
+                    <h3 class="skill-title">Node.js</h3>
+                    <div class="skill-level">
+                        <div class="skill-progress" data-level="89%"></div>
+                    </div>
+                </div>
+            </div>
+
+          <div class="skills-grid" id="design">
+            <div class="skill-card">
+              <div class="skill-icon">
+                <i class="fab fa-figma"></i>
+              </div>
+              <h3 class="skill-title">Figma</h3>
+              <div class="skill-level">
+                <div class="skill-progress" data-level="85%"></div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">
+                <i class="fas fa-pencil-ruler"></i>
+              </div>
+              <h3 class="skill-title">UI/UX Design</h3>
+              <div class="skill-level">
+                <div class="skill-progress" data-level="75%"></div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">
+                <i class="fas fa-palette"></i>
+              </div>
+              <h3 class="skill-title">Graphic Design</h3>
+              <div class="skill-level">
+                <div class="skill-progress" data-level="65%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-grid" id="other">
+            <div class="skill-card">
+              <div class="skill-icon">
+                <i class="fas fa-project-diagram"></i>
+              </div>
+              <h3 class="skill-title">Project Management</h3>
+              <div class="skill-level">
+                <div class="skill-progress" data-level="70%"></div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="skill-title">Team Leadership</h3>
+              <div class="skill-level">
+                <div class="skill-progress" data-level="80%"></div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-icon">
+                <i class="fas fa-cloud"></i>
+              </div>
+              <h3 class="skill-title">Cloud Computing</h3>
+              <div class="skill-level">
+                <div class="skill-progress" data-level="78%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="projects" class="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">MY WORK</span>
+          <h2 class="section-title">Featured Projects</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="projects-filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="web">Web</button>
+          <button class="filter-btn" data-filter="app">App</button>
+          <button class="filter-btn" data-filter="design">Design</button>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card" data-category="web">
+            <div class="project-image">
+              <img src="/api/placeholder/400/320" alt="E-Commerce Platform Project Screenshot" />
+            </div>
+            <div class="project-overlay">
+              <h3 class="project-title">E-Commerce Platform</h3>
+              <p class="project-category">Web Development</p>
+              <div class="project-buttons">
+                <button class="project-btn view-btn btn-glow" data-project="ecommerce">
+                  View Details
+                </button>
+                <button class="project-btn live-btn btn-glow">Live Demo</button>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" data-category="app">
+            <div class="project-image">
+              <img src="/api/placeholder/400/320" alt="Fitness Tracker App Project Screenshot" />
+            </div>
+            <div class="project-overlay">
+              <h3 class="project-title">Fitness Tracker</h3>
+              <p class="project-category">Mobile App</p>
+              <div class="project-buttons">
+                <button class="project-btn view-btn btn-glow" data-project="fitness">
+                  View Details
+                </button>
+                <button class="project-btn live-btn btn-glow">Live Demo</button>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" data-category="design">
+            <div class="project-image">
+              <img src="/api/placeholder/400/320" alt="Brand Identity Design Project Screenshot" />
+            </div>
+            <div class="project-overlay">
+              <h3 class="project-title">Brand Identity</h3>
+              <p class="project-category">Design</p>
+              <div class="project-buttons">
+                <button class="project-btn view-btn btn-glow" data-project="branding">
+                  View Details
+                </button>
+                <button class="project-btn live-btn btn-glow">Live Demo</button>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" data-category="web">
+            <div class="project-image">
+              <img src="/api/placeholder/400/320" alt="Portfolio Website Project Screenshot" />
+            </div>
+            <div class="project-overlay">
+              <h3 class="project-title">Portfolio Website</h3>
+              <p class="project-category">Web Development</p>
+              <div class="project-buttons">
+                <button class="project-btn view-btn btn-glow" data-project="portfolio">
+                  View Details
+                </button>
+                <button class="project-btn live-btn btn-glow">Live Demo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">GET IN TOUCH</span>
+          <h2 class="section-title">Contact Me</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Location</h4>
+                <p>New York City, USA</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Email</h4>
+                <p>djm7992@psu.edu</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <i class="fas fa-discord"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Discord</h4>
+                <p>baby.xeno</p>
+              </div>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://github.com/BabyXeno"
+                class="social-link"
+                aria-label="GitHub profile"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="LinkedIn profile"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="Twitter profile"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="Instagram profile"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <div class="contact-form">
+            <form id="contactForm">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Your Name"
+                  required
+                  aria-label="Your Name"
+                />
+                <span class="input-focus"></span>
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-input"
+                  placeholder="Your Email"
+                  required
+                  aria-label="Your Email"
+                />
+                <span class="input-focus"></span>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-input" placeholder="Subject" aria-label="Subject" />
+                <span class="input-focus"></span>
+              </div>
+              <div class="form-group">
+                <textarea
+                  class="form-input"
+                  placeholder="Your Message"
+                  rows="5"
+                  required
+                  aria-label="Your Message"
+                ></textarea>
+                <span class="input-focus"></span>
+              </div>
+              <button type="submit" class="submit-btn btn-glow">
+                <span>Send Message</span>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+            <div class="form-status">
+              <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <p>Your message has been sent successfully!</p>
+              </div>
+              <div class="error-message">
+                <i class="fas fa-times-circle"></i>
+                <p>Oops! Something went wrong. Please try again.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">ZENITH</div>
+          <p class="footer-text">Creating digital experiences that inspire.</p>
+          <div class="footer-social">
+            <a
+              href="https://github.com/BabyXeno"
+              class="footer-social-link"
+              aria-label="GitHub profile"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="#" class="footer-social-link" aria-label="LinkedIn profile"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="#" class="footer-social-link" aria-label="Twitter profile"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="footer-social-link" aria-label="Instagram profile"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Dontae Mast All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <div class="modal" id="projectModal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+    <div class="chatbot">
+      <div class="chatbot-toggle" aria-label="Toggle chatbot">
+        <i class="fas fa-comment"></i>
+      </div>
+      <div class="chatbot-container">
+        <div class="chatbot-header">
+          <h3>Let's Chat</h3>
+          <span class="chatbot-close" aria-label="Close chatbot">&times;</span>
+        </div>
+        <div class="chatbot-messages">
+          <div class="message bot-message">
+            Hello! I'm ZENITH's AI assistant. How can I help you today?
+          </div>
+        </div>
+        <div class="chatbot-input">
+          <input type="text" placeholder="Type your message..." aria-label="Chat input" />
+          <button class="chatbot-send btn-glow" aria-label="Send message">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
