@@ -169,14 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewDetailButtons = document.querySelectorAll('.project-btn.view-btn');
     const projectDetails = {
         ecommerce: {
-            title: 'E-Commerce Platform',
+            title: 'SurvivX.org',
             description:
-                'A robust e-commerce platform built with modern web technologies. Features include user authentication, product catalog, shopping cart, and secure checkout. Designed for scalability and performance.',
-            image: '/api/placeholder/800/600',
-            client: 'Example Client',
-            date: 'March 2025',
-            skills: 'React, Node.js, Express, MongoDB, Stripe API',
-            liveLink: '#',
+                'SurvivX is a fast-paced 2D battle royale game where the goal is to be the last player standing. Start with just a backpack, scavenge for loot, eliminate opponents, and avoid the deadly red zone that closes in as the match progresses. Inspired by games like PUBG and Fortnite, SurvivX offers classic battle royale action with a top-down twist.',
+            image:'survivxproject2.png',
+            client:'Personal Project',
+            date: 'April 2025',
+            skills: 'TypeScript, Git, NGINX, Node.js, pnpm, PostgreSQL, CSS, HTML',
+            liveLink: 'https://survivx.org',
         },
         fitness: {
             title: 'Fitness Tracker',
