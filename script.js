@@ -351,14 +351,14 @@ document.addEventListener('DOMContentLoaded', () => {
     lowerMessage.includes("about me")
   ) {
     botResponse =
-      "Dontae Mast is the visionary behind ZENITH – a digital innovator and creative developer with over 8 years of experience crafting extraordinary web experiences. He blends technical mastery with artistic vision to reach the pinnacle of digital creation. You can delve deeper into his journey in the 'About Me' section. Would you like me to tell you more about his **experience** or **education**?";
+      "Dontae Mast is the visionary behind ZENITH – a digital innovator and creative developer with 2 years of experience crafting extraordinary web experiences. He blends technical mastery with artistic vision to reach the pinnacle of digital creation. You can delve deeper into his journey in the 'About Me' section. Would you like me to tell you more about his **experience** or **education**?";
   } else if (
     lowerMessage.includes("experience") ||
     lowerMessage.includes("work history") ||
     lowerMessage.includes("previous jobs")
   ) {
     botResponse =
-      "Dontae Mast brings over 8 years of hands-on experience in the digital realm, working on diverse projects from web applications to mobile solutions. His experience spans various industries and technical challenges, always aiming for excellence. For a detailed look at his professional journey, please visit the 'About Me' section.";
+      "Dontae Mast brings 2 years of hands-on experience in the digital realm, working on diverse projects from web applications to mobile solutions. His experience spans various industries and technical challenges, always aiming for excellence. For a detailed look at his professional journey, please visit the 'About Me' section.";
   } else if (
     lowerMessage.includes("education") ||
     lowerMessage.includes("studied") ||
@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ) {
     botResponse =
       "In the realm of development, ZENITH's foundation is strong with:<br>" +
-      "- **Front-end:** React, Angular, Vue.js<br>" +
+      "- **Front-end:** React, HTML, CSS<br>" +
       "- **Back-end:** Node.js, Databases (SQL and NoSQL)<br><br>" +
       "Which development area piques your interest?";
   } else if (
