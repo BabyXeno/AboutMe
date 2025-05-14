@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = projectModal.querySelector('.modal-body');
     const viewDetailButtons = document.querySelectorAll('.project-btn.view-btn');
     const projectDetails = {
-        ecommerce: {
+        SurvivX: {
             title: 'SurvivX.org',
             description:
                 'SurvivX is a fast-paced 2D battle royale game where the goal is to be the last player standing. Start with just a backpack, scavenge for loot, eliminate opponents, and avoid the deadly red zone that closes in as the match progresses. Inspired by games like PUBG and Fortnite, SurvivX offers classic battle royale action with a top-down twist.',
