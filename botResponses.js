@@ -5,6 +5,7 @@ export function generateBotResponse(userMessage) {
   let botResponse =
     "I'm your ZENITH AI assistant, here to help you explore this portfolio. I can provide information on my skills, projects, or how to get in touch. What's at your peak interest today?";
 
+  // Added more general questions and answers
   if (
     lowerMessage.includes("hello") ||
     lowerMessage.includes("hi") ||
@@ -16,15 +17,49 @@ export function generateBotResponse(userMessage) {
       "Hello there! What can I illuminate for you about Dontae Mast's work?",
       "Hey! I'm powered up and ready to assist. What's your query?",
       "Welcome to the summit! I'm your ZENITH guide. How can I help you reach new heights?",
+      "Namaste! Ready to dive into the world of ZENITH?",
+      "Bonjour! How may I assist you on this digital journey?",
     ];
     botResponse = greetings[Math.floor(Math.random() * greetings.length)];
   } else if (lowerMessage.includes("how are you")) {
     botResponse =
       "As a digital entity, I don't experience feelings in the human sense, but I'm operating optimally and ready to assist you! How can I help you achieve your objectives today?";
-  } else if (lowerMessage.includes("what can you do") || lowerMessage.includes("help me")) {
-    botResponse =
-      "I can help you explore the ZENITH portfolio! I have information on Dontae Mast's **Skills**, his impactful **Projects**, and how you can **Contact** him. Just ask me about one of those areas!";
   } else if (
+    lowerMessage.includes("what can you do") ||
+    lowerMessage.includes("help me") ||
+    lowerMessage.includes("your function") ||
+    lowerMessage.includes("your purpose")
+  ) {
+    botResponse =
+      "I am ZENITH's AI assistant, designed to guide you through this portfolio. I can provide information on Dontae Mast's **Skills**, his impactful **Projects**, details **About Me** (Dontae), and how you can **Contact** him. What would you like to know?";
+  } else if (lowerMessage.includes("who built you") || lowerMessage.includes("your creator")) {
+      botResponse = "I was crafted and integrated into this digital space by the brilliant mind behind ZENITH, Dontae Mast!";
+  } else if (lowerMessage.includes("what is this website about") || lowerMessage.includes("purpose of this site")) {
+      botResponse = "This is the official portfolio website of Dontae Mast, showcasing his expertise as a Digital Innovator and Creative Developer. You can explore his **Skills**, **Projects**, and learn **About Me** (him).";
+  } else if (lowerMessage.includes("what technologies are used") || lowerMessage.includes("tech stack")) {
+      botResponse = "This website itself is built with modern web technologies including HTML, CSS, JavaScript, and leverages the power of GSAP for animations and Three.js for the interactive globe. You can also learn about the technologies Dontae is proficient in in the **Skills** section.";
+  } else if (lowerMessage.includes("can you chat about anything") || lowerMessage.includes("can you talk about other things")) {
+      botResponse = "My primary focus is to assist you with information related to this portfolio: Dontae Mast's **Skills**, **Projects**, **About Me**, and **Contact** details. While I have some general conversational abilities, I'm most helpful when discussing these topics!";
+  } else if (lowerMessage.includes("favorite color")) {
+      botResponse = "As an AI, I don't have preferences like a favorite color. However, I find the colors used in this portfolio, like the primary purple and secondary cyan, quite visually appealing!";
+  } else if (lowerMessage.includes("what is your name")) {
+      botResponse = "I am ZENITH's AI assistant! You can think of me as your digital guide here.";
+  } else if (lowerMessage.includes("tell me a joke")) {
+      const jokes = [
+          "Why did the developer quit his job? Because he didn't get arrays!",
+          "What's a programmer's favorite place in the city? The data center!",
+          "Why was the JavaScript developer sad? Because he didn't know how to 'null' his feelings.",
+          "I told my computer I needed a break, and now it won't stop sending me vacation ads.",
+      ];
+      botResponse = jokes[Math.floor(Math.random() * jokes.length)];
+  } else if (lowerMessage.includes("what time is it")) {
+      const now = new Date();
+      botResponse = `The current time is ${now.toLocaleTimeString()}.`;
+  } else if (lowerMessage.includes("what is the date")) {
+      const now = new Date();
+      botResponse = `Today's date is ${now.toLocaleDateString()}.`;
+  }
+  else if (
     lowerMessage.includes("who is dontae mast") ||
     lowerMessage.includes("tell me about you") ||
     lowerMessage.includes("your story") ||
@@ -187,6 +222,13 @@ export function generateBotResponse(userMessage) {
       "brand identity",
       "email",
       "discord",
+      "joke",
+      "time",
+      "date",
+      "creator",
+      "technologies",
+      "website",
+      "color"
     ];
     const matchedKeyword = keywords.find((keyword) => lowerMessage.includes(keyword));
 
@@ -194,7 +236,7 @@ export function generateBotResponse(userMessage) {
       botResponse = `It seems you're asking about "${matchedKeyword}". Can you please provide a little more detail? I can offer more specific information about **${matchedKeyword}** or guide you to the relevant section.`;
     } else {
       botResponse =
-        "My understanding is evolving! I can provide information on my **Skills**, **Projects**, how to **Contact** me, or explain the meaning of **ZENITH**. Which topic is at the forefront of your interest?";
+        "My understanding is evolving! I can provide information on my **Skills**, **Projects**, how to **Contact** me, or explain the meaning of **ZENITH**. You can also ask me **About Me** (Dontae) or even tell me to **tell me a joke**! Which topic is at the forefront of your interest?";
     }
   }
 
