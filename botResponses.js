@@ -46,11 +46,15 @@ export function generateBotResponse(userMessage) {
       botResponse = "I am ZENITH's AI assistant! You can think of me as your digital guide here.";
   } else if (lowerMessage.includes("tell me a joke")) {
       const jokes = [
-          "Why did the developer quit his job? Because he didn't get arrays!",
-          "What's a programmer's favorite place in the city? The data center!",
-          "Why was the JavaScript developer sad? Because he didn't know how to 'null' his feelings.",
-          "I told my computer I needed a break, and now it won't stop sending me vacation ads.",
-      ];
+    "Why don't skeletons fight each other? They don't have the guts.",
+    "Why did the scarecrow win an award? Because he was outstanding in his field.",
+    "What do you call fake spaghetti? An impasta.",
+    "Why don't some couples go to the gym? Because some relationships don't work out.",
+    "I used to play piano by ear, but now I use my hands.",
+    "What did the big flower say to the little flower? 'Hi, bud!'",
+    "Why did the tomato turn red? Because it saw the salad dressing!",
+    "I'm reading a book on anti-gravity—it's impossible to put down!",
+];
       botResponse = jokes[Math.floor(Math.random() * jokes.length)];
   } else if (lowerMessage.includes("what time is it")) {
       const now = new Date();
