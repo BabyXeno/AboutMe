@@ -1,0 +1,202 @@
+// botResponses.js
+
+export function generateBotResponse(userMessage) {
+  const lowerMessage = userMessage.toLowerCase();
+  let botResponse =
+    "I'm your ZENITH AI assistant, here to help you explore this portfolio. I can provide information on my skills, projects, or how to get in touch. What's at your peak interest today?";
+
+  if (
+    lowerMessage.includes("hello") ||
+    lowerMessage.includes("hi") ||
+    lowerMessage.includes("hey") ||
+    lowerMessage.includes("greetings")
+  ) {
+    const greetings = [
+      "Greetings, digital explorer! Ready to ascend to the ZENITH? Ask away!",
+      "Hello there! What can I illuminate for you about Dontae Mast's work?",
+      "Hey! I'm powered up and ready to assist. What's your query?",
+      "Welcome to the summit! I'm your ZENITH guide. How can I help you reach new heights?",
+    ];
+    botResponse = greetings[Math.floor(Math.random() * greetings.length)];
+  } else if (lowerMessage.includes("how are you")) {
+    botResponse =
+      "As a digital entity, I don't experience feelings in the human sense, but I'm operating optimally and ready to assist you! How can I help you achieve your objectives today?";
+  } else if (lowerMessage.includes("what can you do") || lowerMessage.includes("help me")) {
+    botResponse =
+      "I can help you explore the ZENITH portfolio! I have information on Dontae Mast's **Skills**, his impactful **Projects**, and how you can **Contact** him. Just ask me about one of those areas!";
+  } else if (
+    lowerMessage.includes("who is dontae mast") ||
+    lowerMessage.includes("tell me about you") ||
+    lowerMessage.includes("your story") ||
+    lowerMessage.includes("background") ||
+    lowerMessage.includes("about me")
+  ) {
+    botResponse =
+      "Dontae Mast is the visionary behind ZENITH – a digital innovator and creative developer with 2 years of experience crafting extraordinary web experiences. He blends technical mastery with artistic vision to reach the pinnacle of digital creation. You can delve deeper into his journey in the 'About Me' section. Would you like me to tell you more about his **experience** or **education**?";
+  } else if (
+    lowerMessage.includes("experience") ||
+    lowerMessage.includes("work history") ||
+    lowerMessage.includes("previous jobs")
+  ) {
+    botResponse =
+      "Dontae Mast brings 2 years of hands-on experience in the digital realm, working on diverse projects from web applications to mobile solutions. His experience spans various industries and technical challenges, always aiming for excellence. For a detailed look at his professional journey, please visit the 'About Me' section.";
+  } else if (
+    lowerMessage.includes("education") ||
+    lowerMessage.includes("studied") ||
+    lowerMessage.includes("degree") ||
+    lowerMessage.includes("university")
+  ) {
+    botResponse =
+      "Dontae Mast's educational background has provided a strong foundation for his technical and creative skills. You can find more specific details about his education in the 'About Me' section, which highlights his academic achievements and areas of study that contribute to his expertise.";
+  } else if (
+    lowerMessage.includes("why zenith") ||
+    lowerMessage.includes("meaning of zenith") ||
+    lowerMessage.includes("what does zenith mean")
+  ) {
+    botResponse =
+      "The name 'ZENITH' represents the highest point in the sky, often used metaphorically for peak performance and achievement. This portfolio embodies that principle – a commitment to reaching the highest standards in digital innovation and development.";
+  } else if (
+    lowerMessage.includes("skills") ||
+    lowerMessage.includes("abilities") ||
+    lowerMessage.includes("expertise") ||
+    lowerMessage.includes("proficient") ||
+    lowerMessage.includes("technologies")
+  ) {
+    botResponse =
+      "ZENITH's capabilities span across key areas of digital creation. My core expertise areas are:<br><br>" +
+      "- **Development:** From crafting responsive front-ends to robust back-end systems.<br>" +
+      "- **Design:** Focusing on intuitive UI/UX and compelling visuals.<br>" +
+      "- **Other:** Including project management and team leadership.<br><br>" +
+      "Are you curious about specific **development skills**, **design skills**, or **other skills**?";
+  } else if (
+    lowerMessage.includes("development skills") ||
+    lowerMessage.includes("coding") ||
+    lowerMessage.includes("programming") ||
+    lowerMessage.includes("front-end") ||
+    lowerMessage.includes("back-end") ||
+    lowerMessage.includes("react") ||
+    lowerMessage.includes("angular") ||
+    lowerMessage.includes("vue.js") ||
+    lowerMessage.includes("node.js") ||
+    lowerMessage.includes("databases")
+  ) {
+    botResponse =
+      "In the realm of development, ZENITH's foundation is strong with:<br>" +
+      "- **Front-end:** React, HTML, CSS<br>" +
+      "- **Back-end:** Node.js, Databases (SQL and NoSQL)<br><br>" +
+      "Which development area piques your interest?";
+  } else if (
+    lowerMessage.includes("design skills") ||
+    lowerMessage.includes("ui/ux") ||
+    lowerMessage.includes("figma") ||
+    lowerMessage.includes("graphic design")
+  ) {
+    botResponse =
+      "My design skills are honed to create user-centric and visually striking interfaces that elevate the user experience. This includes expertise in **Figma**, **UI/UX Design**, and **Graphic Design**. Crafting pixel-perfect and intuitive designs is a priority at ZENITH!";
+  } else if (
+    lowerMessage.includes("other skills") ||
+    lowerMessage.includes("management") ||
+    lowerMessage.includes("leadership") ||
+    lowerMessage.includes("cloud") ||
+    lowerMessage.includes("project management") ||
+    lowerMessage.includes("team leadership") ||
+    lowerMessage.includes("cloud computing")
+  ) {
+    botResponse =
+      "Beyond core development and design, my skills extend to **Project Management**, **Team Leadership**, and working with **Cloud Computing** platforms. These capabilities ensure projects are executed with efficiency and reach their full potential.";
+  } else if (
+    lowerMessage.includes("projects") ||
+    lowerMessage.includes("work") ||
+    lowerMessage.includes("portfolio") ||
+    lowerMessage.includes("show me") ||
+    lowerMessage.includes("examples")
+  ) {
+    botResponse =
+      "Welcome to ZENITH's showcase of achievements! You can explore all featured projects in the 'Projects' section above. Some notable ones that represent peak performance include:<br><br>" +
+      "- The **SurvivX**: A complex web 2d battle royale game.<br>" +
+      "- The **Fitness Tracker**: A mobile app designed for users to reach their personal zenith.<br>" +
+      "- **Brand Identity** projects: Where visual concepts are elevated to memorable brands.<br><br>" +
+      "Would you like a brief overview of a specific project like the **SurvivX**, **Fitness Tracker**, or **Brand Identity**, or are you ready to explore the collection yourself?";
+  } else if (lowerMessage.includes("survivx") || lowerMessage.includes("survivx.org")) {
+    botResponse =
+      "The **SurvivX** project showcases my ability to build real-time, interactive web games using TypeScript, HTML, and CSS. I developed a fast-paced 2D battle royale with responsive player controls, dynamic map mechanics, real-time multiplayer interactions, and a fully customizable cosmetic system. This project highlights my strengths in game logic design, UI implementation, and optimizing performance for browser-based experiences. You can find more details and a link to the live demo in the 'Projects' section.";
+  } else if (lowerMessage.includes("fitness tracker")) {
+    botResponse =
+      "The **Fitness Tracker** is a mobile-first application aimed at empowering users in their fitness journey. Key features include intuitive workout logging, comprehensive progress tracking with visual charts, and goal setting. Developed using React Native and Firebase, it offers a smooth and engaging user experience. Learn more in the 'Projects' section.";
+  } else if (lowerMessage.includes("brand identity") || lowerMessage.includes("branding")) {
+    botResponse =
+      "My **Brand Identity** projects are about creating a powerful and memorable visual foundation for businesses. This involves crafting unique logos, defining cohesive color palettes and typography systems, and developing comprehensive brand guidelines. The goal is to ensure a consistent and impactful brand presence. Explore these projects in the 'Projects' section.";
+  } else if (
+    lowerMessage.includes("contact") ||
+    lowerMessage.includes("get in touch") ||
+    lowerMessage.includes("reach me") ||
+    lowerMessage.includes("email") ||
+    lowerMessage.includes("phone") ||
+    lowerMessage.includes("hire") ||
+    lowerMessage.includes("connect")
+  ) {
+    botResponse =
+      "Ready to collaborate and reach the ZENITH of your digital aspirations? You can find all the necessary contact details in the 'Contact' section. Here are the primary channels:<br><br>" +
+      "- **Email:** djm7992@psu.edu (Ideal for initial inquiries and project discussions)<br>" +
+      "- **Discord:** baby.xeno (For direct communication)<br>" +
+      "- Alternatively, the convenient contact form on the page is available for your message!<br><br>" +
+      "I look forward to connecting with you!";
+  } else if (lowerMessage.includes("email address")) {
+    botResponse =
+      "You can send your inquiries and project details to djm7992@psu.edu. It's the most efficient way to ensure a timely and detailed response.";
+  } else if (lowerMessage.includes("discord")) {
+    botResponse =
+      "My Discord handle is baby.xeno. You can send me a friend request or direct message for direct communication.";
+  } else if (
+    lowerMessage.includes("thank you") ||
+    lowerMessage.includes("thanks") ||
+    lowerMessage.includes("appreciate it")
+  ) {
+    const thankYouResponses = [
+      "You're most welcome! Assisting you in exploring ZENITH is my pleasure.",
+      "Glad I could provide the information you needed!",
+      "Anytime! Is there anything else I can clarify or help you with?",
+      "My pleasure! Feel free to ask if any more questions arise on your journey through the portfolio.",
+    ];
+    botResponse = thankYouResponses[Math.floor(Math.random() * thankYouResponses.length)];
+  } else if (
+    lowerMessage.includes("bye") ||
+    lowerMessage.includes("goodbye") ||
+    lowerMessage.includes("see ya")
+  ) {
+    const farewells = [
+      "Farewell! May your digital pursuits reach their ZENITH.",
+      "Goodbye! Come back anytime you need guidance or information.",
+      "Wishing you a productive day! Feel free to return.",
+      "Until our next interaction! Best of luck with your endeavors.",
+    ];
+    botResponse = farewells[Math.floor(Math.random() * farewells.length)];
+  } else {
+    const keywords = [
+      "skills",
+      "projects",
+      "contact",
+      "about",
+      "zenith",
+      "experience",
+      "education",
+      "development",
+      "design",
+      "survivx",
+      "fitness tracker",
+      "brand identity",
+      "email",
+      "discord",
+    ];
+    const matchedKeyword = keywords.find((keyword) => lowerMessage.includes(keyword));
+
+    if (matchedKeyword) {
+      botResponse = `It seems you're asking about "${matchedKeyword}". Can you please provide a little more detail? I can offer more specific information about **${matchedKeyword}** or guide you to the relevant section.`;
+    } else {
+      botResponse =
+        "My understanding is evolving! I can provide information on my **Skills**, **Projects**, how to **Contact** me, or explain the meaning of **ZENITH**. Which topic is at the forefront of your interest?";
+    }
+  }
+
+  return botResponse;
+}
