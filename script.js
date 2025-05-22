@@ -302,36 +302,136 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Chatbot elements
     const chatbotToggle = document.querySelector('.chatbot-toggle');
     const chatbotContainer = document.querySelector('.chatbot-container');
     const chatbotClose = document.querySelector('.chatbot-close');
     const chatbotInput = chatbotContainer.querySelector('input');
     const chatbotSendButton = chatbotContainer.querySelector('.chatbot-send');
     const chatbotMessages = chatbotContainer.querySelector('.chatbot-messages');
+    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle'); // New voice toggle button
+    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status'); // New status element
+
+    let isRecognizingChatbot = false;
+    let chatbotRecognition;
+    let messageSentByVoice = false; // Flag to track if the message was sent by voice
 
 
-    // Initial welcome message from the bot
+    // Check for SpeechRecognition API for chatbot voice input
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        chatbotRecognition = new SpeechRecognition();
+        chatbotRecognition.lang = 'en-US';
+        chatbotRecognition.interimResults = false; // We only want final results for chatbot input
+        chatbotRecognition.continuous = false; // Single command/sentence per recognition
+
+        chatbotRecognition.onstart = () => {
+            isRecognizingChatbot = true;
+            chatbotVoiceStatus.textContent = "Listening...";
+            chatbotVoiceStatus.classList.add('active'); // Show status text
+            chatbotVoiceToggle.classList.add('active'); // Add a visual indicator if needed
+            messageSentByVoice = true; // Set the flag when recognition starts
+        };
+
+        chatbotRecognition.onerror = (event) => {
+            isRecognizingChatbot = false;
+            chatbotVoiceStatus.textContent = 'Voice input error: ' + event.error;
+             chatbotVoiceStatus.classList.remove('active'); // Hide status text on error
+            chatbotVoiceToggle.classList.remove('active');
+            messageSentByVoice = false; // Reset flag on error
+            console.error('Speech Recognition Error:', event.error);
+        };
+
+        chatbotRecognition.onend = () => {
+            isRecognizingChatbot = false;
+             // Keep the status message until the next recognition starts or manually cleared
+            chatbotVoiceToggle.classList.remove('active');
+             // The status text might remain visible after speech ends if a result was processed.
+             // It will be cleared when a new recognition starts or on the next text input.
+        };
+
+        chatbotRecognition.onresult = (event) => {
+            let finalTranscript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript;
+                }
+            }
+            chatbotVoiceStatus.textContent = ""; // Clear status after result is obtained
+            chatbotVoiceStatus.classList.remove('active'); // Hide status text after result
+            if (finalTranscript) {
+                chatbotInput.value = finalTranscript; // Put transcribed text into the input field
+                sendMessage(); // Automatically send the transcribed message
+            } else {
+                 chatbotVoiceStatus.textContent = "No voice input detected.";
+                 // The status text will remain for a short period before disappearing (or until new input)
+            }
+             messageSentByVoice = true; // Ensure flag is true if a result was processed
+        };
+    } else {
+        // Hide the voice toggle button and status if not supported
+        if(chatbotVoiceToggle) {
+             chatbotVoiceToggle.style.display = 'none';
+             chatbotVoiceStatus.textContent = "Voice input not supported.";
+             chatbotVoiceStatus.classList.add('active'); // Show the unsupported message
+             chatbotVoiceStatus.style.color = 'var(--gray)'; // Style the unsupported message
+        }
+    }
+
+    // Event listener for the new voice toggle button
+    if(chatbotVoiceToggle) {
+        chatbotVoiceToggle.addEventListener('click', () => {
+            if (isRecognizingChatbot) {
+                chatbotRecognition.stop();
+                 chatbotVoiceStatus.textContent = "Voice input stopped.";
+                 chatbotVoiceStatus.classList.remove('active'); // Hide status text on stop
+            } else {
+                chatbotRecognition.start();
+                 // The onstart event handles setting the status text and flag
+            }
+        });
+    }
+
+
+    // Initial welcome message from the bot (using the imported function)
     document.addEventListener('DOMContentLoaded', () => {
         if (chatbotMessages) {
-            appendMessage(
-                "Hello there! I'm ZENITH's AI assistant. How may I guide you through this digital cosmos?",
-                'bot-message'
-            );
+            const initialMessage = generateBotResponse("initial greeting"); // Use a trigger phrase or similar
+            appendMessage(initialMessage, 'bot-message');
         }
     });
 
     chatbotToggle.addEventListener('click', () => {
         chatbotContainer.classList.toggle('active');
+        // Stop voice recognition when chatbot is closed
+        if (!chatbotContainer.classList.contains('active') && isRecognizingChatbot) {
+            chatbotRecognition.stop();
+            chatbotVoiceStatus.textContent = ""; // Clear status on close
+            chatbotVoiceStatus.classList.remove('active');
+            messageSentByVoice = false; // Reset flag on close
+        }
     });
 
     chatbotClose.addEventListener('click', () => {
         chatbotContainer.classList.remove('active');
+        // Stop voice recognition when chatbot is closed
+        if (isRecognizingChatbot) {
+             chatbotRecognition.stop();
+             chatbotVoiceStatus.textContent = ""; // Clear status on close
+             chatbotVoiceStatus.classList.remove('active');
+             messageSentByVoice = false; // Reset flag on close
+        }
     });
 
-    chatbotSendButton.addEventListener('click', sendMessage);
+
+    chatbotSendButton.addEventListener('click', () => {
+         messageSentByVoice = false; // Explicitly set flag to false for typed messages
+         sendMessage();
+    });
 
     chatbotInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
+             messageSentByVoice = false; // Explicitly set flag to false for typed messages
             sendMessage();
         }
     });
@@ -342,12 +442,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appendMessage(messageText, 'user-message');
         chatbotInput.value = '';
+         // Clear voice status after sending a message (both voice and text)
+         chatbotVoiceStatus.textContent = "";
+         chatbotVoiceStatus.classList.remove('active');
+
 
         // Delay the bot's response to simulate thinking
         setTimeout(() => {
             // Call the imported function to get the bot's response
             const botResponse = generateBotResponse(messageText);
+
+            // ONLY speak the response if the message was sent by voice
+            if (messageSentByVoice) {
+                 speakChatbotResponse(botResponse);
+            }
+
             appendMessage(botResponse, 'bot-message');
+
+            // Reset the flag AFTER processing the response
+            messageSentByVoice = false;
         }, 800); // Adjust delay as needed
     }
 
@@ -375,6 +488,32 @@ document.addEventListener('DOMContentLoaded', () => {
             duration: 0.3,
         });
     }
+
+     // Function to speak the chatbot's response
+    function speakChatbotResponse(text) {
+        const synth = window.speechSynthesis;
+        if (!synth) {
+             console.warn("Speech synthesis not supported for chatbot responses.");
+             return;
+        }
+
+        // Cancel any ongoing speech (in case the user types while bot is speaking)
+        if (synth.speaking) {
+            synth.cancel();
+        }
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.pitch = 1.1; // Slightly different pitch for chatbot voice
+        utterance.rate = 1.0; // Standard rate
+        utterance.lang = 'en-US';
+
+         utterance.onerror = (event) => {
+             console.error('Chatbot SpeechSynthesisUtterance error:', event);
+         };
+
+        synth.speak(utterance);
+    }
+
 
     // THREE.js Globe Animation
     const scene = new THREE.Scene();

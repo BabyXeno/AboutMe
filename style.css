@@ -414,11 +414,6 @@ body {
     z-index: 1;
     border: none;
   }
-  .primary-btn {
-    background: var(--gradient-1);
-    color: var(--light);
-    box-shadow: var(--shadow-primary);
-  }
   .primary-btn::before {
     content: '';
     position: absolute;
@@ -470,7 +465,26 @@ body {
     position: relative;
     z-index: 1;
     overflow: hidden;
+    background: var(--gradient-1); /* Default for buttons */
+    color: var(--light); /* Default text color for buttons */
+    box-shadow: var(--shadow-primary); /* Default shadow for buttons */
   }
+
+  /* Specific style for the secondary button btn-glow */
+  button.secondary-btn.btn-glow {
+      background: transparent;
+      color: var(--light-alt);
+      border: 2px solid var(--primary-light);
+      box-shadow: none; /* Remove default glow shadow for secondary */
+  }
+
+   button.secondary-btn.btn-glow:hover {
+      color: var(--light);
+      box-shadow: var(--shadow-primary); /* Apply primary shadow on hover */
+      border-color: transparent;
+  }
+
+
   .btn-glow::after {
     content: '';
     position: absolute;
@@ -856,7 +870,7 @@ body {
   }
   .stat-label {
     font-size: var(--font-size-sm);
-    font-weight: 600;
+       font-weight: 600;
     color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1745,6 +1759,7 @@ body {
     padding: 1rem;
     border-top: 1px solid hsla(0, 0%, 98%, 0.08);
     background-color: var(--dark-alt);
+    position: relative; /* Needed for absolute positioning of voice status */
   }
   .chatbot-input input {
     flex: 1;
@@ -1760,9 +1775,11 @@ body {
   }
   .chatbot-input input:focus {
     border-color: var(--primary-light);
+    background-color: hsla(0, 0%, 98%, 0.07);
     box-shadow: 0 0 0 2px hsla(260, 100%, 50%, 0.1);
   }
-  .chatbot-send {
+  .chatbot-send,
+  .chatbot-voice-toggle { /* Apply styles to both buttons */
     width: 45px;
     height: 45px;
     border-radius: var(--radius-full);
@@ -1774,7 +1791,56 @@ body {
     transition: all var(--speed-fast) ease;
     border: none;
     box-shadow: var(--shadow-primary);
+    margin-left: 0.5rem; /* Space between input and buttons */
   }
+
+  /* Specific styles for the voice toggle button */
+  .chatbot-voice-toggle {
+    background: var(--gradient-2); /* Use a different gradient or color */
+    box-shadow: var(--shadow-accent); /* Use a different shadow */
+    position: relative;
+    overflow: hidden; /* For subtle pulse effect */
+  }
+
+  .chatbot-voice-toggle i {
+     color: var(--light);
+     transition: color var(--speed-fast) ease;
+  }
+
+  .chatbot-voice-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px hsla(330, 100%, 60%, 0.6); /* Glow effect on hover */
+  }
+
+  /* Animation for the voice toggle when active (listening) */
+  .chatbot-voice-toggle.active {
+     animation: voice-pulse 1.5s infinite ease-out;
+     background: var(--gradient-1); /* Change background when active */
+     box-shadow: 0 0 20px hsla(260, 100%, 70%, 0.8); /* Stronger glow when active */
+  }
+
+   @keyframes voice-pulse {
+       0% { transform: scale(1); opacity: 1; }
+       50% { transform: scale(1.08); opacity: 0.8; }
+       100% { transform: scale(1); opacity: 1; }
+   }
+
+
+  .chatbot-voice-status {
+      position: absolute;
+      bottom: -1.5rem; /* Position below the input area */
+      left: 1rem; /* Align with the left edge of the input */
+      right: 1rem;
+      text-align: center;
+      font-size: var(--font-size-xs);
+      color: var(--gray);
+      opacity: 0.8;
+      white-space: nowrap; /* Prevent text wrapping */
+      overflow: hidden; /* Hide overflow */
+      text-overflow: ellipsis; /* Add ellipsis if text is too long */
+  }
+
+
   .chatbot-send:hover {
     transform: scale(1.1);
     box-shadow: 0 5px 15px hsla(260, 100%, 50%, 0.5);
@@ -1923,6 +1989,10 @@ body {
       bottom: 80px;
       height: 400px;
     }
+     .chatbot-voice-status {
+        bottom: -1.2rem; /* Adjust position for smaller screens */
+        font-size: var(--font-size-xs);
+    }
   }
   @media screen and (max-width: 576px) {
     :root {
@@ -2027,6 +2097,13 @@ body {
       width: 40px;
       height: 40px;
     }
+     .chatbot-voice-toggle {
+       width: 40px;
+       height: 40px;
+     }
+      .chatbot-voice-status {
+        bottom: -1.2rem; /* Adjust position for smaller screens */
+        font-size: 0.6rem; /* Smaller font size */
+    }
   }
-  
-  
+

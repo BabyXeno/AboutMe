@@ -65,6 +65,8 @@ export function generateBotResponse(userMessage) {
   }
   else if (
     lowerMessage.includes("who is dontae mast") ||
+    lowerMessage.includes("who is dante mast") ||
+    lowerMessage.includes("Who is Dante Mast?") ||
     lowerMessage.includes("tell me about you") ||
     lowerMessage.includes("your story") ||
     lowerMessage.includes("background") ||
