@@ -1,11 +1,9 @@
-// botResponses.js
-
 export function generateBotResponse(userMessage) {
   const lowerMessage = userMessage.toLowerCase();
   let botResponse =
     "I'm your ZENITH AI assistant, here to help you explore this portfolio. I can provide information on my skills, projects, or how to get in touch. What's at your peak interest today?";
 
-  // Added more general questions and answers
+ 
   if (
     lowerMessage.includes("hello") ||
     lowerMessage.includes("hi") ||

@@ -1,5 +1,3 @@
-// script.js
-
 import { generateBotResponse } from './botResponses.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -140,15 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // Initial animation for the first skill tab (development)
     document.querySelectorAll('#development .skill-progress').forEach((progress) => {
         const level = progress.getAttribute('data-level');
         gsap.to(progress, {
             width: level,
             duration: 1.5,
             ease: 'power3.out',
-            delay: 2, // Add a delay so it happens after initial load animations
+            delay: 2,
         });
     });
 
@@ -164,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.utils.toArray('.project-card').forEach((card) => {
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     gsap.to(card, {
-                        display: 'block', // Ensure the card is visible
+                        display: 'block', 
                         opacity: 1,
                         scale: 1,
                         duration: 0.5,
@@ -177,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         duration: 0.5,
                         ease: 'power2.out',
                         onComplete: () => {
-                            card.style.display = 'none'; // Hide the card after fading out
+                            card.style.display = 'none';
                         },
                     });
                 }
@@ -190,8 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = projectModal.querySelector('.close');
     const modalBody = projectModal.querySelector('.modal-body');
     const viewDetailButtons = document.querySelectorAll('.project-btn.view-btn');
-
-    // Project details object remains in script.js as it's directly related to modal display
     const projectDetails = {
         SurvivX: {
             title: 'SurvivX.org',
@@ -207,31 +201,31 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Fitness Tracker',
             description:
                 'A mobile-first fitness tracking application that allows users to log workouts, track progress, and set goals. Includes features like exercise library, progress charts, and social sharing.',
-            image: '/api/placeholder/800/600', // Replace with actual image path
+            image: '/api/placeholder/800/600',
             client: 'Fitness Co.',
             date: 'January 2025',
             skills: 'React Native, Firebase, Redux',
-            liveLink: '#', // Replace with actual link
+            liveLink: '#',
         },
         branding: {
             title: 'Brand Identity',
             description:
                 'Development of a comprehensive brand identity for a new tech startup. Included logo design, color palette, typography, and brand guidelines to establish a strong visual presence.',
-            image: '/api/placeholder/800/600', // Replace with actual image path
+            image: '/api/placeholder/800/600', 
             client: 'Startup Innovations',
             date: 'November 2024',
             skills: 'Figma, Adobe Creative Suite, Branding Strategy',
-            liveLink: '#', // Replace with actual link
+            liveLink: '#',
         },
          portfolio: {
             title: 'Personal Portfolio Website',
             description:
                 'A showcase of my work and skills, demonstrating expertise in front-end development and UI/UX design. Built with a focus on performance, responsiveness, and engaging user experience.',
-            image: '/api/placeholder/800/600', // Replace with actual image path
+            image: '/api/placeholder/800/600', 
             client: 'Self',
             date: 'May 2025',
             skills: 'HTML, CSS, JavaScript, GSAP, Three.js',
-            liveLink: '#', // Replace with actual link
+            liveLink: '#', 
         },
     };
 
@@ -287,8 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contactForm.addEventListener('submit', (event) => {
         event.preventDefault();
-
-        // Simulate form submission success
         setTimeout(() => {
             successMessage.style.display = 'flex';
             errorMessage.style.display = 'none';
@@ -298,56 +290,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 20,
                 duration: 0.5,
             });
-        }, 1000); // Simulate a delay for submission
+        }, 1000); 
     });
-
-
-    // Chatbot elements
     const chatbotToggle = document.querySelector('.chatbot-toggle');
     const chatbotContainer = document.querySelector('.chatbot-container');
     const chatbotClose = document.querySelector('.chatbot-close');
     const chatbotInput = chatbotContainer.querySelector('input');
     const chatbotSendButton = chatbotContainer.querySelector('.chatbot-send');
     const chatbotMessages = chatbotContainer.querySelector('.chatbot-messages');
-    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle'); // New voice toggle button
-    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status'); // New status element
+    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle'); 
+    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status'); 
 
     let isRecognizingChatbot = false;
     let chatbotRecognition;
-    let messageSentByVoice = false; // Flag to track if the message was sent by voice
+    let messageSentByVoice = false; 
 
-
-    // Check for SpeechRecognition API for chatbot voice input
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         chatbotRecognition = new SpeechRecognition();
         chatbotRecognition.lang = 'en-US';
-        chatbotRecognition.interimResults = false; // We only want final results for chatbot input
-        chatbotRecognition.continuous = false; // Single command/sentence per recognition
+        chatbotRecognition.interimResults = false; 
+        chatbotRecognition.continuous = false; 
 
         chatbotRecognition.onstart = () => {
             isRecognizingChatbot = true;
             chatbotVoiceStatus.textContent = "Listening...";
-            chatbotVoiceStatus.classList.add('active'); // Show status text
-            chatbotVoiceToggle.classList.add('active'); // Add a visual indicator if needed
-            messageSentByVoice = true; // Set the flag when recognition starts
+            chatbotVoiceStatus.classList.add('active'); 
+            chatbotVoiceToggle.classList.add('active'); 
+            messageSentByVoice = true; 
         };
 
         chatbotRecognition.onerror = (event) => {
             isRecognizingChatbot = false;
             chatbotVoiceStatus.textContent = 'Voice input error: ' + event.error;
-             chatbotVoiceStatus.classList.remove('active'); // Hide status text on error
+             chatbotVoiceStatus.classList.remove('active');
             chatbotVoiceToggle.classList.remove('active');
-            messageSentByVoice = false; // Reset flag on error
+            messageSentByVoice = false; 
             console.error('Speech Recognition Error:', event.error);
         };
 
         chatbotRecognition.onend = () => {
             isRecognizingChatbot = false;
-             // Keep the status message until the next recognition starts or manually cleared
             chatbotVoiceToggle.classList.remove('active');
-             // The status text might remain visible after speech ends if a result was processed.
-             // It will be cleared when a new recognition starts or on the next text input.
         };
 
         chatbotRecognition.onresult = (event) => {
@@ -357,81 +341,71 @@ document.addEventListener('DOMContentLoaded', () => {
                     finalTranscript += event.results[i][0].transcript;
                 }
             }
-            chatbotVoiceStatus.textContent = ""; // Clear status after result is obtained
-            chatbotVoiceStatus.classList.remove('active'); // Hide status text after result
+            chatbotVoiceStatus.textContent = ""; 
+            chatbotVoiceStatus.classList.remove('active'); 
             if (finalTranscript) {
-                chatbotInput.value = finalTranscript; // Put transcribed text into the input field
-                sendMessage(); // Automatically send the transcribed message
+                chatbotInput.value = finalTranscript; 
+                sendMessage(); 
             } else {
                  chatbotVoiceStatus.textContent = "No voice input detected.";
-                 // The status text will remain for a short period before disappearing (or until new input)
             }
-             messageSentByVoice = true; // Ensure flag is true if a result was processed
+             messageSentByVoice = true; 
         };
     } else {
-        // Hide the voice toggle button and status if not supported
         if(chatbotVoiceToggle) {
              chatbotVoiceToggle.style.display = 'none';
              chatbotVoiceStatus.textContent = "Voice input not supported.";
-             chatbotVoiceStatus.classList.add('active'); // Show the unsupported message
-             chatbotVoiceStatus.style.color = 'var(--gray)'; // Style the unsupported message
+             chatbotVoiceStatus.classList.add('active'); 
+             chatbotVoiceStatus.style.color = 'var(--gray)'; 
         }
     }
-
-    // Event listener for the new voice toggle button
     if(chatbotVoiceToggle) {
         chatbotVoiceToggle.addEventListener('click', () => {
             if (isRecognizingChatbot) {
                 chatbotRecognition.stop();
                  chatbotVoiceStatus.textContent = "Voice input stopped.";
-                 chatbotVoiceStatus.classList.remove('active'); // Hide status text on stop
+                 chatbotVoiceStatus.classList.remove('active'); 
             } else {
                 chatbotRecognition.start();
-                 // The onstart event handles setting the status text and flag
             }
         });
     }
-
-
-    // Initial welcome message from the bot (using the imported function)
     document.addEventListener('DOMContentLoaded', () => {
         if (chatbotMessages) {
-            const initialMessage = generateBotResponse("initial greeting"); // Use a trigger phrase or similar
+            const initialMessage = generateBotResponse("initial greeting"); 
             appendMessage(initialMessage, 'bot-message');
         }
     });
 
     chatbotToggle.addEventListener('click', () => {
         chatbotContainer.classList.toggle('active');
-        // Stop voice recognition when chatbot is closed
         if (!chatbotContainer.classList.contains('active') && isRecognizingChatbot) {
             chatbotRecognition.stop();
-            chatbotVoiceStatus.textContent = ""; // Clear status on close
+            chatbotVoiceStatus.textContent = "";
             chatbotVoiceStatus.classList.remove('active');
-            messageSentByVoice = false; // Reset flag on close
+            messageSentByVoice = false; 
         }
     });
 
     chatbotClose.addEventListener('click', () => {
         chatbotContainer.classList.remove('active');
-        // Stop voice recognition when chatbot is closed
         if (isRecognizingChatbot) {
              chatbotRecognition.stop();
-             chatbotVoiceStatus.textContent = ""; // Clear status on close
+             chatbotVoiceStatus.textContent = ""; 
              chatbotVoiceStatus.classList.remove('active');
-             messageSentByVoice = false; // Reset flag on close
+             messageSentByVoice = false;
         }
     });
 
 
     chatbotSendButton.addEventListener('click', () => {
-         messageSentByVoice = false; // Explicitly set flag to false for typed messages
+         messageSentByVoice = false; 
          sendMessage();
     });
 
     chatbotInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-             messageSentByVoice = false; // Explicitly set flag to false for typed messages
+             messageSentByVoice = false;
             sendMessage();
         }
     });
@@ -442,69 +416,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appendMessage(messageText, 'user-message');
         chatbotInput.value = '';
-         // Clear voice status after sending a message (both voice and text)
          chatbotVoiceStatus.textContent = "";
          chatbotVoiceStatus.classList.remove('active');
-
-
-        // Delay the bot's response to simulate thinking
         setTimeout(() => {
-            // Call the imported function to get the bot's response
             const botResponse = generateBotResponse(messageText);
-
-            // ONLY speak the response if the message was sent by voice
             if (messageSentByVoice) {
                  speakChatbotResponse(botResponse);
             }
 
             appendMessage(botResponse, 'bot-message');
 
-            // Reset the flag AFTER processing the response
             messageSentByVoice = false;
-        }, 800); // Adjust delay as needed
+        }, 800); 
     }
 
     function appendMessage(text, type) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
-        // Basic markdown-like formatting for bold
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        // Handle line breaks
         formattedText = formattedText.replace(/\n/g, '<br>');
 
         messageElement.innerHTML = formattedText;
         chatbotMessages.appendChild(messageElement);
-
-        // Scroll to the latest message
         chatbotMessages.scrollTo({
             top: chatbotMessages.scrollHeight,
             behavior: 'smooth',
         });
-
-        // Optional: Add a subtle animation to new messages
         gsap.from(messageElement, {
             opacity: 0,
             y: 10,
             duration: 0.3,
         });
     }
-
-     // Function to speak the chatbot's response
     function speakChatbotResponse(text) {
         const synth = window.speechSynthesis;
         if (!synth) {
              console.warn("Speech synthesis not supported for chatbot responses.");
              return;
         }
-
-        // Cancel any ongoing speech (in case the user types while bot is speaking)
         if (synth.speaking) {
             synth.cancel();
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.pitch = 1.1; // Slightly different pitch for chatbot voice
-        utterance.rate = 1.0; // Standard rate
+        utterance.pitch = 1.1; 
+        utterance.rate = 1.0; 
         utterance.lang = 'en-US';
 
          utterance.onerror = (event) => {
@@ -513,9 +469,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         synth.speak(utterance);
     }
-
-
-    // THREE.js Globe Animation
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -525,37 +478,34 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     const renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById('globe'),
-        alpha: true, // Make background transparent
+        alpha: true,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    const geometry = new THREE.SphereGeometry(5, 64, 64); // Radius, width segments, height segments
+    const geometry = new THREE.SphereGeometry(5, 64, 64); 
     const material = new THREE.MeshBasicMaterial({
-        color: 0x6e00ff, // A purplish color
+        color: 0x6e00ff,
         transparent: true,
-        opacity: 0.1, // Make it semi-transparent
-        wireframe: true, // Display as a wireframe
+        opacity: 0.1, 
+        wireframe: true, 
     });
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
-
-    // Add particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 5000; // Number of particles
-    const posArray = new Float32Array(particlesCount * 3); // x, y, z for each particle
+    const particlesCount = 5000; 
+    const posArray = new Float32Array(particlesCount * 3); 
 
     for (let i = 0; i < particlesCount * 3; i++) {
-        // Positions are random within a cube, adjust range as needed
         posArray[i] = (Math.random() - 0.5) * 10;
     }
 
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
     const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.01, // Size of each particle
-        color: 0x00e5ff, // Cyan color for particles
-        blending: THREE.AdditiveBlending, // For glowing effect
+        size: 0.01, 
+        color: 0x00e5ff, 
+        blending: THREE.AdditiveBlending,
         transparent: true,
         opacity: 0.5,
     });
@@ -563,12 +513,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particleMesh);
 
-    camera.position.z = 15; // Move camera back
+    camera.position.z = 15;
 
     function animateGlobe() {
         requestAnimationFrame(animateGlobe);
 
-        // Rotate the globe and particles
+        
         globe.rotation.y += 0.001;
         particleMesh.rotation.y += 0.001;
 
@@ -577,15 +527,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animateGlobe();
 
-    // Handle window resize
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-
-    // particlesJS configuration (remains in script.js as it's tied to this specific canvas)
     particlesJS('particles-container', {
         particles: {
             number: {
@@ -608,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     nb_sides: 5,
                 },
                 image: {
-                    src: 'img/github.svg', // Replace with actual image path if used
+                    src: 'img/github.svg', 
                     width: 100,
                     height: 100,
                 },
