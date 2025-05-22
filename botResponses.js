@@ -3,7 +3,6 @@ export function generateBotResponse(userMessage) {
   let botResponse =
     "I'm your ZENITH AI assistant, here to help you explore this portfolio. I can provide information on my skills, projects, or how to get in touch. What's at your peak interest today?";
 
- 
   if (
     lowerMessage.includes("hello") ||
     lowerMessage.includes("hi") ||
@@ -31,37 +30,50 @@ export function generateBotResponse(userMessage) {
     botResponse =
       "I am ZENITH's AI assistant, designed to guide you through this portfolio. I can provide information on Dontae Mast's **Skills**, his impactful **Projects**, details **About Me** (Dontae), and how you can **Contact** him. What would you like to know?";
   } else if (lowerMessage.includes("who built you") || lowerMessage.includes("your creator")) {
-      botResponse = "I was crafted and integrated into this digital space by the brilliant mind behind ZENITH, Dontae Mast!";
-  } else if (lowerMessage.includes("what is this website about") || lowerMessage.includes("purpose of this site")) {
-      botResponse = "This is the official portfolio website of Dontae Mast, showcasing his expertise as a Digital Innovator and Creative Developer. You can explore his **Skills**, **Projects**, and learn **About Me** (him).";
-  } else if (lowerMessage.includes("what technologies are used") || lowerMessage.includes("tech stack")) {
-      botResponse = "This website itself is built with modern web technologies including HTML, CSS, JavaScript, and leverages the power of GSAP for animations and Three.js for the interactive globe. You can also learn about the technologies Dontae is proficient in in the **Skills** section.";
-  } else if (lowerMessage.includes("can you chat about anything") || lowerMessage.includes("can you talk about other things")) {
-      botResponse = "My primary focus is to assist you with information related to this portfolio: Dontae Mast's **Skills**, **Projects**, **About Me**, and **Contact** details. While I have some general conversational abilities, I'm most helpful when discussing these topics!";
+    botResponse =
+      "I was crafted and integrated into this digital space by the brilliant mind behind ZENITH, Dontae Mast!";
+  } else if (
+    lowerMessage.includes("what is this website about") ||
+    lowerMessage.includes("purpose of this site")
+  ) {
+    botResponse =
+      "This is the official portfolio website of Dontae Mast, showcasing his expertise as a Digital Innovator and Creative Developer. You can explore his **Skills**, **Projects**, and learn **About Me** (him).";
+  } else if (
+    lowerMessage.includes("what technologies are used") ||
+    lowerMessage.includes("tech stack")
+  ) {
+    botResponse =
+      "This website itself is built with modern web technologies including HTML, CSS, JavaScript, and leverages the power of GSAP for animations and Three.js for the interactive globe. You can also learn about the technologies Dontae is proficient in in the **Skills** section.";
+  } else if (
+    lowerMessage.includes("can you chat about anything") ||
+    lowerMessage.includes("can you talk about other things")
+  ) {
+    botResponse =
+      "My primary focus is to assist you with information related to this portfolio: Dontae Mast's **Skills**, **Projects**, **About Me**, and **Contact** details. While I have some general conversational abilities, I'm most helpful when discussing these topics!";
   } else if (lowerMessage.includes("favorite color")) {
-      botResponse = "As an AI, I don't have preferences like a favorite color. However, I find the colors used in this portfolio, like the primary purple and secondary cyan, quite visually appealing!";
+    botResponse =
+      "As an AI, I don't have preferences like a favorite color. However, I find the colors used in this portfolio, like the primary purple and secondary cyan, quite visually appealing!";
   } else if (lowerMessage.includes("what is your name")) {
-      botResponse = "I am ZENITH's AI assistant! You can think of me as your digital guide here.";
+    botResponse = "I am ZENITH's AI assistant! You can think of me as your digital guide here.";
   } else if (lowerMessage.includes("tell me a joke")) {
-      const jokes = [
-    "Why don't skeletons fight each other? They don't have the guts.",
-    "Why did the scarecrow win an award? Because he was outstanding in his field.",
-    "What do you call fake spaghetti? An impasta.",
-    "Why don't some couples go to the gym? Because some relationships don't work out.",
-    "I used to play piano by ear, but now I use my hands.",
-    "What did the big flower say to the little flower? 'Hi, bud!'",
-    "Why did the tomato turn red? Because it saw the salad dressing!",
-    "I'm reading a book on anti-gravity—it's impossible to put down!",
-];
-      botResponse = jokes[Math.floor(Math.random() * jokes.length)];
+    const jokes = [
+      "Why don't skeletons fight each other? They don't have the guts.",
+      "Why did the scarecrow win an award? Because he was outstanding in his field.",
+      "What do you call fake spaghetti? An impasta.",
+      "Why don't some couples go to the gym? Because some relationships don't work out.",
+      "I used to play piano by ear, but now I use my hands.",
+      "What did the big flower say to the little flower? 'Hi, bud!'",
+      "Why did the tomato turn red? Because it saw the salad dressing!",
+      "I'm reading a book on anti-gravity—it's impossible to put down!",
+    ];
+    botResponse = jokes[Math.floor(Math.random() * jokes.length)];
   } else if (lowerMessage.includes("what time is it")) {
-      const now = new Date();
-      botResponse = `The current time is ${now.toLocaleTimeString()}.`;
+    const now = new Date();
+    botResponse = `The current time is ${now.toLocaleTimeString()}.`;
   } else if (lowerMessage.includes("what is the date")) {
-      const now = new Date();
-      botResponse = `Today's date is ${now.toLocaleDateString()}.`;
-  }
-  else if (
+    const now = new Date();
+    botResponse = `Today's date is ${now.toLocaleDateString()}.`;
+  } else if (
     lowerMessage.includes("who is dontae mast") ||
     lowerMessage.includes("who is dante mast") ||
     lowerMessage.includes("Who is Dante Mast?") ||
@@ -210,7 +222,34 @@ export function generateBotResponse(userMessage) {
       "Until our next interaction! Best of luck with your endeavors.",
     ];
     botResponse = farewells[Math.floor(Math.random() * farewells.length)];
-  } else {
+  }
+  else if (lowerMessage.includes("what is the weather")) {
+    botResponse =
+      "I cannot provide real-time weather information as I don't have access to external, live data feeds. My purpose is to assist you with this portfolio.";
+  } else if (
+    lowerMessage.includes("tell me about") &&
+    !lowerMessage.includes("dontae mast") &&
+    !lowerMessage.includes("you")
+  ) {
+    const topic = userMessage.substring(userMessage.indexOf("tell me about") + 14).trim();
+    botResponse = `My primary function is to provide information about ZENITH and Dontae Mast's portfolio. I can't provide detailed information about "${topic}". Perhaps we can focus on something related to the portfolio?`;
+  } else if (lowerMessage.includes("what is")) {
+    const topic = userMessage.substring(userMessage.indexOf("what is") + 8).trim();
+    botResponse = `That's an interesting question! While I'm focused on the ZENITH portfolio, I can tell you that "${topic}" is a broad topic. To give you a useful answer, I'd need more context. Is this related to web development, design, or perhaps something else?`;
+  } else if (lowerMessage.includes("who is") && !lowerMessage.includes("dontae mast")) {
+    const person = userMessage.substring(userMessage.indexOf("who is") + 7).trim();
+    botResponse = `My knowledge is concentrated on Dontae Mast and his work at ZENITH. I don't have information about "${person}". Perhaps you'd like to know more about Dontae Mast's **experience** or **education**?`;
+  } else if (lowerMessage.includes("why is")) {
+    const topic = userMessage.substring(userMessage.indexOf("why is") + 7).trim();
+    botResponse = `That's a philosophical question! While I don't have opinions or the ability to reason about "why" things are, I can provide information if "${topic}" relates to the ZENITH portfolio. What aspect of "${topic}" are you curious about in relation to Dontae Mast's work?`;
+  } else if (lowerMessage.includes("how to")) {
+    const task = userMessage.substring(userMessage.indexOf("how to") + 7).trim();
+    botResponse = `I can't provide instructions on "${task}" as my purpose is to assist you with navigating this portfolio. If you're looking for information on **Skills**, **Projects**, or how to **Contact** Dontae Mast, I can definitely help!`;
+  } else if (lowerMessage.includes("can you translate")) {
+    botResponse =
+      "I am not equipped for language translation. My focus is on providing information about the ZENITH portfolio in English.";
+  }
+  else {
     const keywords = [
       "skills",
       "projects",
@@ -232,7 +271,7 @@ export function generateBotResponse(userMessage) {
       "creator",
       "technologies",
       "website",
-      "color"
+      "color",
     ];
     const matchedKeyword = keywords.find((keyword) => lowerMessage.includes(keyword));
 
