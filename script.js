@@ -1,3 +1,5 @@
+// script.js
+
 import { generateBotResponse } from './botResponses.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -138,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
     document.querySelectorAll('#development .skill-progress').forEach((progress) => {
         const level = progress.getAttribute('data-level');
         gsap.to(progress, {
@@ -160,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.utils.toArray('.project-card').forEach((card) => {
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     gsap.to(card, {
-                        display: 'block', 
+                        display: 'block',
                         opacity: 1,
                         scale: 1,
                         duration: 0.5,
@@ -186,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = projectModal.querySelector('.close');
     const modalBody = projectModal.querySelector('.modal-body');
     const viewDetailButtons = document.querySelectorAll('.project-btn.view-btn');
+
     const projectDetails = {
         SurvivX: {
             title: 'SurvivX.org',
@@ -211,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Brand Identity',
             description:
                 'Development of a comprehensive brand identity for a new tech startup. Included logo design, color palette, typography, and brand guidelines to establish a strong visual presence.',
-            image: '/api/placeholder/800/600', 
+            image: '/api/placeholder/800/600',
             client: 'Startup Innovations',
             date: 'November 2024',
             skills: 'Figma, Adobe Creative Suite, Branding Strategy',
@@ -221,11 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Personal Portfolio Website',
             description:
                 'A showcase of my work and skills, demonstrating expertise in front-end development and UI/UX design. Built with a focus on performance, responsiveness, and engaging user experience.',
-            image: '/api/placeholder/800/600', 
+            image: '/api/placeholder/800/600',
             client: 'Self',
             date: 'May 2025',
             skills: 'HTML, CSS, JavaScript, GSAP, Three.js',
-            liveLink: '#', 
+            liveLink: '#',
         },
     };
 
@@ -281,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contactForm.addEventListener('submit', (event) => {
         event.preventDefault();
+
         setTimeout(() => {
             successMessage.style.display = 'flex';
             errorMessage.style.display = 'none';
@@ -290,42 +295,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 20,
                 duration: 0.5,
             });
-        }, 1000); 
+        }, 1000);
     });
+
+
     const chatbotToggle = document.querySelector('.chatbot-toggle');
     const chatbotContainer = document.querySelector('.chatbot-container');
     const chatbotClose = document.querySelector('.chatbot-close');
     const chatbotInput = chatbotContainer.querySelector('input');
     const chatbotSendButton = chatbotContainer.querySelector('.chatbot-send');
     const chatbotMessages = chatbotContainer.querySelector('.chatbot-messages');
-    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle'); 
-    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status'); 
+    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle');
+    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status');
 
     let isRecognizingChatbot = false;
     let chatbotRecognition;
-    let messageSentByVoice = false; 
+    let messageSentByVoice = false;
+
+    let availableVoices = [];
+    let selectedVoice = null;
+
+    const selectVoice = () => {
+         availableVoices = speechSynthesis.getVoices();
+        selectedVoice = availableVoices.find(voice => voice.lang === 'en-US' && voice.name.includes('female')) ||
+                        availableVoices.find(voice => voice.lang === 'en-US') ||
+                        availableVoices[0];
+
+        if (!selectedVoice) {
+            console.warn("No English voices found, using default.");
+        }
+    }
+
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = selectVoice;
+    }
+    selectVoice();
 
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         chatbotRecognition = new SpeechRecognition();
         chatbotRecognition.lang = 'en-US';
-        chatbotRecognition.interimResults = false; 
-        chatbotRecognition.continuous = false; 
+        chatbotRecognition.interimResults = false;
+        chatbotRecognition.continuous = false;
 
         chatbotRecognition.onstart = () => {
             isRecognizingChatbot = true;
             chatbotVoiceStatus.textContent = "Listening...";
-            chatbotVoiceStatus.classList.add('active'); 
-            chatbotVoiceToggle.classList.add('active'); 
-            messageSentByVoice = true; 
+            chatbotVoiceStatus.classList.add('active');
+            chatbotVoiceToggle.classList.add('active');
+            messageSentByVoice = true;
         };
 
         chatbotRecognition.onerror = (event) => {
             isRecognizingChatbot = false;
             chatbotVoiceStatus.textContent = 'Voice input error: ' + event.error;
-             chatbotVoiceStatus.classList.remove('active');
+            chatbotVoiceStatus.classList.remove('active');
             chatbotVoiceToggle.classList.remove('active');
-            messageSentByVoice = false; 
+            messageSentByVoice = false;
             console.error('Speech Recognition Error:', event.error);
         };
 
@@ -341,65 +367,89 @@ document.addEventListener('DOMContentLoaded', () => {
                     finalTranscript += event.results[i][0].transcript;
                 }
             }
-            chatbotVoiceStatus.textContent = ""; 
-            chatbotVoiceStatus.classList.remove('active'); 
+            chatbotVoiceStatus.textContent = "";
+            chatbotVoiceStatus.classList.remove('active');
             if (finalTranscript) {
-                chatbotInput.value = finalTranscript; 
-                sendMessage(); 
+                chatbotInput.value = finalTranscript;
+                sendMessage();
             } else {
                  chatbotVoiceStatus.textContent = "No voice input detected.";
             }
-             messageSentByVoice = true; 
         };
     } else {
         if(chatbotVoiceToggle) {
              chatbotVoiceToggle.style.display = 'none';
-             chatbotVoiceStatus.textContent = "Voice input not supported.";
-             chatbotVoiceStatus.classList.add('active'); 
-             chatbotVoiceStatus.style.color = 'var(--gray)'; 
+             chatbotVoiceStatus.textContent = "Voice input not supported in this browser.";
+             chatbotVoiceStatus.classList.add('active');
+             chatbotVoiceStatus.style.color = 'var(--gray)';
         }
     }
+
     if(chatbotVoiceToggle) {
         chatbotVoiceToggle.addEventListener('click', () => {
             if (isRecognizingChatbot) {
                 chatbotRecognition.stop();
                  chatbotVoiceStatus.textContent = "Voice input stopped.";
-                 chatbotVoiceStatus.classList.remove('active'); 
+                 chatbotVoiceStatus.classList.remove('active');
             } else {
+                 chatbotInput.value = '';
+                 chatbotVoiceStatus.textContent = "";
+                 chatbotVoiceStatus.classList.remove('active');
                 chatbotRecognition.start();
             }
         });
     }
-    document.addEventListener('DOMContentLoaded', () => {
-        if (chatbotMessages) {
-            const initialMessage = generateBotResponse("initial greeting"); 
-            appendMessage(initialMessage, 'bot-message');
-        }
-    });
+
+    let initialGreetingSpoken = false; // Flag to track if the initial greeting has been spoken
 
     chatbotToggle.addEventListener('click', () => {
         chatbotContainer.classList.toggle('active');
-        if (!chatbotContainer.classList.contains('active') && isRecognizingChatbot) {
-            chatbotRecognition.stop();
+        // When chatbot is opened for the first time, trigger the initial greeting
+        if (chatbotContainer.classList.contains('active') && !initialGreetingSpoken) {
+            const initialMessageText = generateBotResponse("initial greeting");
+            appendMessage(initialMessageText, 'bot-message');
+            // Delay speaking the initial message slightly
+            setTimeout(() => {
+                // Temporarily set flag to true for speaking the initial message
+                const tempMessageSentByVoice = messageSentByVoice; // Store current state
+                messageSentByVoice = true;
+                speakChatbotResponse(initialMessageText);
+                messageSentByVoice = tempMessageSentByVoice; // Restore original state
+                initialGreetingSpoken = true; // Mark greeting as spoken
+            }, 500); // Adjust delay as needed for the initial greeting
+        }
+
+        // Stop voice recognition and speech when chatbot is closed
+        if (!chatbotContainer.classList.contains('active')) {
+             if (isRecognizingChatbot) {
+                chatbotRecognition.stop();
+             }
             chatbotVoiceStatus.textContent = "";
             chatbotVoiceStatus.classList.remove('active');
-            messageSentByVoice = false; 
+             // Stop any ongoing speech when chatbot is closed
+            if (window.speechSynthesis && window.speechSynthesis.speaking) {
+                 window.speechSynthesis.cancel();
+            }
         }
     });
 
     chatbotClose.addEventListener('click', () => {
         chatbotContainer.classList.remove('active');
-        if (isRecognizingChatbot) {
+         // Stop voice recognition and speech when chatbot is closed
+         if (isRecognizingChatbot) {
              chatbotRecognition.stop();
-             chatbotVoiceStatus.textContent = ""; 
-             chatbotVoiceStatus.classList.remove('active');
-             messageSentByVoice = false;
+         }
+        chatbotVoiceStatus.textContent = "";
+        chatbotVoiceStatus.classList.remove('active');
+         // Stop any ongoing speech when chatbot is closed
+        if (window.speechSynthesis && window.speechSynthesis.speaking) {
+             window.speechSynthesis.cancel();
         }
     });
 
 
     chatbotSendButton.addEventListener('click', () => {
-         messageSentByVoice = false; 
+         messageSentByVoice = false;
          sendMessage();
     });
 
@@ -418,16 +468,20 @@ document.addEventListener('DOMContentLoaded', () => {
         chatbotInput.value = '';
          chatbotVoiceStatus.textContent = "";
          chatbotVoiceStatus.classList.remove('active');
+
+
         setTimeout(() => {
             const botResponse = generateBotResponse(messageText);
+
             if (messageSentByVoice) {
                  speakChatbotResponse(botResponse);
             }
 
             appendMessage(botResponse, 'bot-message');
 
+            // Reset the flag AFTER the response has been processed (both text and optional speech)
             messageSentByVoice = false;
-        }, 800); 
+        }, 800);
     }
 
     function appendMessage(text, type) {
@@ -438,29 +492,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         messageElement.innerHTML = formattedText;
         chatbotMessages.appendChild(messageElement);
+
         chatbotMessages.scrollTo({
             top: chatbotMessages.scrollHeight,
             behavior: 'smooth',
         });
+
         gsap.from(messageElement, {
             opacity: 0,
             y: 10,
             duration: 0.3,
         });
     }
+
     function speakChatbotResponse(text) {
         const synth = window.speechSynthesis;
         if (!synth) {
              console.warn("Speech synthesis not supported for chatbot responses.");
              return;
         }
+
         if (synth.speaking) {
             synth.cancel();
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.pitch = 1.1; 
-        utterance.rate = 1.0; 
+
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+        } else {
+            selectVoice();
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            } else {
+                 console.warn("Still no suitable voice found after attempting to populate.");
+            }
+        }
+
+
+        utterance.pitch = 1.1;
+        utterance.rate = 1.0;
         utterance.lang = 'en-US';
 
          utterance.onerror = (event) => {
@@ -469,6 +540,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         synth.speak(utterance);
     }
+
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -483,18 +556,19 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    const geometry = new THREE.SphereGeometry(5, 64, 64); 
+    const geometry = new THREE.SphereGeometry(5, 64, 64);
     const material = new THREE.MeshBasicMaterial({
         color: 0x6e00ff,
         transparent: true,
-        opacity: 0.1, 
-        wireframe: true, 
+        opacity: 0.1,
+        wireframe: true,
     });
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
+
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 5000; 
-    const posArray = new Float32Array(particlesCount * 3); 
+    const particlesCount = 5000;
+    const posArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
         posArray[i] = (Math.random() - 0.5) * 10;
@@ -503,8 +577,8 @@ document.addEventListener('DOMContentLoaded', () => {
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
     const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.01, 
-        color: 0x00e5ff, 
+        size: 0.01,
+        color: 0x00e5ff,
         blending: THREE.AdditiveBlending,
         transparent: true,
         opacity: 0.5,
@@ -518,7 +592,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function animateGlobe() {
         requestAnimationFrame(animateGlobe);
 
-        
         globe.rotation.y += 0.001;
         particleMesh.rotation.y += 0.001;
 
@@ -532,6 +605,7 @@ document.addEventListener('DOMContentLoaded', () => {
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
+
 
     particlesJS('particles-container', {
         particles: {
@@ -555,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     nb_sides: 5,
                 },
                 image: {
-                    src: 'img/github.svg', 
+                    src: 'img/github.svg',
                     width: 100,
                     height: 100,
                 },
