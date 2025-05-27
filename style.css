@@ -1,3 +1,5 @@
+
+
 :root {
     --primary: hsl(260, 100%, 50%);
     --primary-dark: hsl(260, 80%, 40%);
@@ -255,6 +257,11 @@
     overflow: hidden;
     color: var(--light-alt);
   }
+  .nav-link span {
+    position: relative;
+    display: inline-block;
+    transition: transform var(--speed-fast) ease;
+  }
   .nav-link span::before {
     content: attr(data-text);
     position: absolute;
@@ -460,9 +467,9 @@ body {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    background: var(--gradient-1);
-    color: var(--light);
-    box-shadow: var(--shadow-primary);
+    background: var(--gradient-1); 
+    color: var(--light); 
+    box-shadow: var(--shadow-primary); 
   }
 
 
@@ -865,7 +872,7 @@ body {
   }
   .stat-label {
     font-size: var(--font-size-sm);
-    font-weight: 600;
+       font-weight: 600;
     color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1754,9 +1761,7 @@ body {
     padding: 1rem;
     border-top: 1px solid hsla(0, 0%, 98%, 0.08);
     background-color: var(--dark-alt);
-    position: relative;
-    /* Increased padding-bottom to make space for the status message */
-    padding-bottom: 2.5rem; /* Adjust as needed */
+    position: relative; 
   }
   .chatbot-input input {
     flex: 1;
@@ -1773,43 +1778,28 @@ body {
   .chatbot-input input:focus {
     border-color: var(--primary-light);
     background-color: hsla(0, 0%, 98%, 0.07);
-    box-shadow: 0 0 0 3px hsla(260, 100%, 50%, 0.15);
+    box-shadow: 0 0 0 2px hsla(260, 100%, 50%, 0.1);
   }
   .chatbot-send,
-  .chatbot-voice-toggle { /* Apply styles to both buttons */
+  .chatbot-voice-toggle { 
     width: 45px;
     height: 45px;
     border-radius: var(--radius-full);
+    background: var(--gradient-1);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all var(--speed-fast) ease;
     border: none;
-    margin-left: 0.5rem; /* Space between input and buttons */
+    box-shadow: var(--shadow-primary);
+    margin-left: 0.5rem; 
   }
-
-  /* Specific styles for the send button */
-  .chatbot-send {
-       background: var(--gradient-1);
-       box-shadow: var(--shadow-primary);
-  }
-
-  .chatbot-send:hover {
-       transform: scale(1.1);
-       box-shadow: 0 5px 15px hsla(260, 100%, 50%, 0.5);
-  }
-
-   .chatbot-send i {
-       color: var(--light);
-   }
-
-  /* Specific styles for the voice toggle button */
   .chatbot-voice-toggle {
-    background: var(--gradient-2);
-    box-shadow: var(--shadow-accent);
+    background: var(--gradient-2); 
+    box-shadow: var(--shadow-accent); 
     position: relative;
-    overflow: hidden; /* For subtle pulse effect */
+    overflow: hidden; 
   }
 
   .chatbot-voice-toggle i {
@@ -1819,15 +1809,13 @@ body {
 
   .chatbot-voice-toggle:hover {
     transform: scale(1.1);
-    box-shadow: 0 5px 15px hsla(330, 100%, 60%, 0.6); /* Glow effect on hover */
+    box-shadow: 0 5px 15px hsla(330, 100%, 60%, 0.6); 
   }
 
-  /* Animation for the voice toggle when active (listening) */
   .chatbot-voice-toggle.active {
      animation: voice-pulse 1.5s infinite ease-out;
-     background: var(--gradient-1); /* Change background when active */
-     box-shadow: 0 0 20px hsla(260, 100%, 70%, 0.8); /* Stronger glow when active */
-     border-color: hsla(260, 100%, 70%, 0.5); /* Add a subtle border */
+     background: var(--gradient-1); 
+     box-shadow: 0 0 20px hsla(260, 100%, 70%, 0.8); 
   }
 
    @keyframes voice-pulse {
@@ -1836,116 +1824,285 @@ body {
        100% { transform: scale(1); opacity: 1; }
    }
 
-/* Style for the voice status text */
-.chatbot-voice-status {
-    position: absolute;
-    bottom: 0.5rem; /* Position above the very bottom */
-    left: 1rem;
-    right: 1rem;
-    text-align: center;
-    font-size: var(--font-size-xs);
-    color: var(--secondary); /* Highlight the status text */
-    opacity: 1; /* Ensure visibility */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: opacity var(--speed-fast) ease;
-    /* Initially hidden or less prominent */
-    opacity: 0;
-}
 
-/* Make status visible when listening */
-.chatbot-voice-status.active {
-    opacity: 1;
-}
+  .chatbot-voice-status {
+      position: absolute;
+      bottom: -1.5rem; 
+      left: 1rem;
+      right: 1rem;
+      text-align: center;
+      font-size: var(--font-size-xs);
+      color: var(--gray);
+      opacity: 0.8;
+      white-space: nowrap;
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+  }
 
 
+  .chatbot-send:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px hsla(260, 100%, 50%, 0.5);
+  }
+  .chatbot-send i {
+    color: var(--light);
+  }
   @media screen and (max-width: 1200px) {
-    /* ... (existing 1200px styles) ... */
-  }
-
-  @media screen and (max-width: 992px) {
-    /* ... (existing 992px styles) ... */
-  }
-
-  @media screen and (max-width: 768px) {
-    /* ... (existing 768px styles) ... */
-    .chatbot-container {
-      width: 300px; /* Adjust width for medium screens */
-      right: 15px; /* Adjust positioning */
-      bottom: 80px;
-      height: 400px; /* Adjust height */
+    :root {
+      --font-size-hero: 4.5rem;
     }
-     /* Adjust voice status positioning for this range if needed */
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .about-image {
+      max-width: 500px;
+      margin: 0 auto;
+      transform: none;
+      perspective: none;
+    }
+    .image-wrapper {
+      transform: none;
+    }
+    .image-wrapper:hover {
+      transform: scale(1.05);
+    }
+    .about-shapes {
+      display: none;
+    }
+    .about-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .projects-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .modal-body {
+      grid-template-columns: 1fr;
+    }
+    .modal-image {
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      height: 300px;
+    }
+    .modal-text {
+      padding: 2rem;
+    }
+  }
+  @media screen and (max-width: 992px) {
+    :root {
+      --font-size-hero: 3.5rem;
+      --font-size-4xl: 2.5rem;
+      --font-size-3xl: 2rem;
+    }
+    section {
+      padding: 6rem 0;
+    }
+    .contact-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .contact-info {
+      text-align: center;
+    }
+    .contact-info-item {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .contact-icon {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+    .social-links {
+      justify-content: center;
+    }
+    .contact-form {
+      padding: 2rem;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    :root {
+      --font-size-hero: 2.8rem;
+      --font-size-4xl: 2rem;
+      --font-size-3xl: 1.8rem;
+      --font-size-2xl: 1.5rem;
+    }
+    section {
+      padding: 5rem 0;
+    }
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background-color: var(--dark-alt);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: right var(--speed-normal) ease;
+      z-index: var(--z-modal);
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4);
+    }
+    .nav-links.active {
+      right: 0;
+    }
+    .menu-toggle {
+      display: flex;
+  }
+    .menu-toggle.active .bar:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    .menu-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active .bar:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+    .hero-buttons {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .section-header {
+      margin-bottom: 3rem;
+    }
+    .skills-tabs,
+    .projects-filter {
+      gap: 1rem;
+    }
+    .skill-tab,
+    .filter-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: var(--font-size-sm);
+    }
+    .about-stats {
+      grid-template-columns: 1fr;
+    }
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .chatbot-container {
+      width: 300px;
+      right: 15px;
+      bottom: 80px;
+      height: 400px;
+    }
      .chatbot-voice-status {
-        bottom: -1.2rem;
+        bottom: -1.2rem; 
         font-size: var(--font-size-xs);
     }
   }
-
   @media screen and (max-width: 576px) {
-    /* ... (existing 576px styles) ... */
+    :root {
+      --font-size-hero: 2.2rem;
+      --font-size-4xl: 1.8rem;
+      --font-size-3xl: 1.6rem;
+      --font-size-2xl: 1.4rem;
+      --font-size-xl: 1.1rem;
+      --font-size-lg: 1rem;
+    }
+    section {
+      padding: 4rem 0;
+    }
+    .hero-title {
+      font-size: var(--font-size-hero);
+    }
+    .cta-button {
+      padding: 0.8rem 1.8rem;
+      font-size: var(--font-size-sm);
+    }
+    .section-title {
+      font-size: var(--font-size-4xl);
+    }
+    .about-content {
+      gap: 2rem;
+    }
+    .about-image {
+      max-width: 100%;
+    }
+    .stat-item {
+      padding: 1.5rem;
+    }
+    .stat-number {
+      font-size: var(--font-size-3xl);
+    }
+    .skill-card {
+      padding: 1.5rem;
+    }
+    .skill-icon {
+      font-size: var(--font-size-3xl);
+    }
+    .skill-title {
+      font-size: var(--font-size-md);
+    }
+    .project-title {
+      font-size: var(--font-size-lg);
+    }
+    .project-btn {
+      padding: 0.5rem 1rem;
+      font-size: var(--font-size-xs);
+    }
+    .modal-text {
+      padding: 1.5rem;
+    }
+    .modal-title {
+      font-size: var(--font-size-2xl);
+    }
+    .modal-description {
+      font-size: var(--font-size-sm);
+    }
+    .detail-label {
+      width: 80px;
+    }
+    .modal-btn {
+      padding: 0.8rem 1.8rem;
+      font-size: var(--font-size-sm);
+    }
+    .contact-form {
+      padding: 1.5rem;
+    }
+    .form-input {
+      padding: 1rem 1.2rem;
+    }
+    .submit-btn {
+      padding: 1rem 2rem;
+      font-size: var(--font-size-sm);
+    }
+    .footer-logo {
+      font-size: var(--font-size-2xl);
+    }
+    .footer-social {
+      gap: 1rem;
+    }
+    .footer-social-link {
+      width: 35px;
+      height: 35px;
+      font-size: var(--font-size-md);
+    }
     .chatbot-container {
-      width: 95%; /* Make it wider, taking up more screen width */
-      left: 2.5%; /* Center horizontally */
-      right: 2.5%; /* Center horizontally */
-      bottom: 70px; /* Adjust bottom position */
-      height: 350px; /* Adjust height */
+      width: 90%;
+      right: 5%;
+      bottom: 70px;
+      height: 350px;
     }
-
-    /* Adjust input area padding to fit buttons and status in the new width */
-     .chatbot-input {
-        padding: 0.8rem; /* Reduced padding */
-        padding-bottom: 2rem; /* Space for status */
+    .chatbot-input {
+      padding: 0.8rem;
     }
-
-    /* Adjust button sizes if they need to be smaller in this range */
-    .chatbot-send,
-    .chatbot-voice-toggle {
+    .chatbot-input input {
+      padding: 0.6rem 0.8rem;
+    }
+    .chatbot-send {
+      width: 40px;
+      height: 40px;
+    }
+     .chatbot-voice-toggle {
        width: 40px;
        height: 40px;
-       margin-left: 0.3rem; /* Reduce space between buttons slightly */
-    }
-
-    /* Adjust voice status positioning and font size */
-     .chatbot-voice-status {
-        bottom: -1rem;
-        font-size: 0.6rem;
-        left: 0.8rem; /* Adjust left/right for tighter fit */
-        right: 0.8rem;
+     }
+      .chatbot-voice-status {
+        bottom: -1.2rem; 
+        font-size: 0.6rem; 
     }
   }
 
-/* Styles for very small phone screens (optional, adjust breakpoint as needed) */
-/* If the squeezing happens on even smaller screens, add another media query */
-@media screen and (max-width: 375px) {
-    .chatbot-container {
-       width: 98%; /* Even wider for very small screens */
-       left: 1%;
-       right: 1%;
-       height: 320px; /* Potentially shorter for less vertical space */
-       bottom: 60px;
-    }
-
-    /* Adjust input area padding for very small screens */
-     .chatbot-input {
-        padding: 0.6rem;
-        padding-bottom: 1.8rem;
-     }
-
-    /* Adjust button sizes if they need to be even smaller */
-     .chatbot-send,
-     .chatbot-voice-toggle {
-        width: 35px;
-        height: 35px;
-        margin-left: 0.2rem;
-     }
-
-     /* Adjust voice status positioning and font size */
-     .chatbot-voice-status {
-        bottom: -0.8rem;
-        font-size: 0.55rem;
-        left: 0.6rem;
-        right: 0.6rem;
-     }
-}
