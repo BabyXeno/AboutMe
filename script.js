@@ -141,13 +141,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Initial animation for the first skill tab (development)
     document.querySelectorAll('#development .skill-progress').forEach((progress) => {
         const level = progress.getAttribute('data-level');
         gsap.to(progress, {
             width: level,
             duration: 1.5,
             ease: 'power3.out',
-            delay: 2,
+            delay: 2, // Add a delay so it happens after initial load animations
         });
     });
 
@@ -163,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.utils.toArray('.project-card').forEach((card) => {
                 if (filter === 'all' || card.getAttribute('data-category') === filter) {
                     gsap.to(card, {
-                        display: 'block',
+                        display: 'block', // Ensure the card is visible
                         opacity: 1,
                         scale: 1,
                         duration: 0.5,
@@ -176,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         duration: 0.5,
                         ease: 'power2.out',
                         onComplete: () => {
-                            card.style.display = 'none';
+                            card.style.display = 'none'; // Hide the card after fading out
                         },
                     });
                 }
@@ -190,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = projectModal.querySelector('.modal-body');
     const viewDetailButtons = document.querySelectorAll('.project-btn.view-btn');
 
+    // Project details object remains in script.js as it's directly related to modal display
     const projectDetails = {
         SurvivX: {
             title: 'SurvivX.org',
@@ -205,31 +207,31 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Fitness Tracker',
             description:
                 'A mobile-first fitness tracking application that allows users to log workouts, track progress, and set goals. Includes features like exercise library, progress charts, and social sharing.',
-            image: '/api/placeholder/800/600',
+            image: '/api/placeholder/800/600', // Replace with actual image path
             client: 'Fitness Co.',
             date: 'January 2025',
             skills: 'React Native, Firebase, Redux',
-            liveLink: '#',
+            liveLink: '#', // Replace with actual link
         },
         branding: {
             title: 'Brand Identity',
             description:
                 'Development of a comprehensive brand identity for a new tech startup. Included logo design, color palette, typography, and brand guidelines to establish a strong visual presence.',
-            image: '/api/placeholder/800/600',
+            image: '/api/placeholder/800/600', // Replace with actual image path
             client: 'Startup Innovations',
             date: 'November 2024',
             skills: 'Figma, Adobe Creative Suite, Branding Strategy',
-            liveLink: '#',
+            liveLink: '#', // Replace with actual link
         },
          portfolio: {
             title: 'Personal Portfolio Website',
             description:
                 'A showcase of my work and skills, demonstrating expertise in front-end development and UI/UX design. Built with a focus on performance, responsiveness, and engaging user experience.',
-            image: '/api/placeholder/800/600',
+            image: '/api/placeholder/800/600', // Replace with actual image path
             client: 'Self',
             date: 'May 2025',
             skills: 'HTML, CSS, JavaScript, GSAP, Three.js',
-            liveLink: '#',
+            liveLink: '#', // Replace with actual link
         },
     };
 
@@ -286,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
+        // Simulate form submission success
         setTimeout(() => {
             successMessage.style.display = 'flex';
             errorMessage.style.display = 'none';
@@ -295,69 +298,83 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 20,
                 duration: 0.5,
             });
-        }, 1000);
+        }, 1000); // Simulate a delay for submission
     });
 
 
+    // Chatbot elements
     const chatbotToggle = document.querySelector('.chatbot-toggle');
     const chatbotContainer = document.querySelector('.chatbot-container');
     const chatbotClose = document.querySelector('.chatbot-close');
     const chatbotInput = chatbotContainer.querySelector('input');
     const chatbotSendButton = chatbotContainer.querySelector('.chatbot-send');
     const chatbotMessages = chatbotContainer.querySelector('.chatbot-messages');
-    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle');
-    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status');
+    const chatbotVoiceToggle = chatbotContainer.querySelector('.chatbot-voice-toggle'); // New voice toggle button
+    const chatbotVoiceStatus = chatbotContainer.querySelector('.chatbot-voice-status'); // New status element
 
     let isRecognizingChatbot = false;
     let chatbotRecognition;
-    let messageSentByVoice = false;
+    let messageSentByVoice = false; // Flag to track if the message was sent by voice
 
-    let availableVoices = [];
-    let selectedVoice = null;
+    let availableVoices = []; // Array to store available voices
+    let selectedVoice = null; // Variable to hold the selected voice
 
+    let initialGreetingSpoken = false; // Flag to track if the initial greeting has been spoken
+
+
+    // Function to populate available voices and select one
     const selectVoice = () => {
          availableVoices = speechSynthesis.getVoices();
+        // Find an English voice, preferably a female one, for a softer tone
         selectedVoice = availableVoices.find(voice => voice.lang === 'en-US' && voice.name.includes('female')) ||
                         availableVoices.find(voice => voice.lang === 'en-US') ||
-                        availableVoices[0];
+                        availableVoices[0]; // Fallback to the first available voice
 
         if (!selectedVoice) {
             console.warn("No English voices found, using default.");
         }
     }
 
+
+    // Populate voices when they are loaded or if already available
     if (speechSynthesis.onvoiceschanged !== undefined) {
         speechSynthesis.onvoiceschanged = selectVoice;
     }
+     // Call selectVoice immediately as voices might already be loaded
     selectVoice();
 
+
+    // Check for SpeechRecognition API for chatbot voice input
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         chatbotRecognition = new SpeechRecognition();
         chatbotRecognition.lang = 'en-US';
-        chatbotRecognition.interimResults = false;
-        chatbotRecognition.continuous = false;
+        chatbotRecognition.interimResults = false; // We only want final results for chatbot input
+        chatbotRecognition.continuous = false; // Single command/sentence per recognition
 
         chatbotRecognition.onstart = () => {
             isRecognizingChatbot = true;
             chatbotVoiceStatus.textContent = "Listening...";
-            chatbotVoiceStatus.classList.add('active');
-            chatbotVoiceToggle.classList.add('active');
-            messageSentByVoice = true;
+            chatbotVoiceStatus.classList.add('active'); // Show status text
+            chatbotVoiceToggle.classList.add('active'); // Add a visual indicator if needed
+            messageSentByVoice = true; // Set the flag when recognition starts
         };
 
         chatbotRecognition.onerror = (event) => {
             isRecognizingChatbot = false;
             chatbotVoiceStatus.textContent = 'Voice input error: ' + event.error;
-            chatbotVoiceStatus.classList.remove('active');
+             chatbotVoiceStatus.classList.remove('active'); // Hide status text on error
             chatbotVoiceToggle.classList.remove('active');
-            messageSentByVoice = false;
+            messageSentByVoice = false; // Reset flag on error
             console.error('Speech Recognition Error:', event.error);
         };
 
         chatbotRecognition.onend = () => {
             isRecognizingChatbot = false;
+             // Keep the status message until the next recognition starts or manually cleared
             chatbotVoiceToggle.classList.remove('active');
+             // The status text might remain visible after speech ends if a result was processed.
+             // It will be cleared when a new recognition starts or on the next text input.
         };
 
         chatbotRecognition.onresult = (event) => {
@@ -367,65 +384,75 @@ document.addEventListener('DOMContentLoaded', () => {
                     finalTranscript += event.results[i][0].transcript;
                 }
             }
-            chatbotVoiceStatus.textContent = "";
-            chatbotVoiceStatus.classList.remove('active');
+            chatbotVoiceStatus.textContent = ""; // Clear status after result is obtained
+            chatbotVoiceStatus.classList.remove('active'); // Hide status text after result
             if (finalTranscript) {
-                chatbotInput.value = finalTranscript;
-                sendMessage();
+                chatbotInput.value = finalTranscript; // Put transcribed text into the input field
+                sendMessage(); // Automatically send the transcribed message
             } else {
                  chatbotVoiceStatus.textContent = "No voice input detected.";
+                 // The status text will remain for a short period before disappearing (or until new input)
             }
+             // messageSentByVoice is already set to true in onstart
         };
     } else {
+        // Hide the voice toggle button and status if not supported
         if(chatbotVoiceToggle) {
              chatbotVoiceToggle.style.display = 'none';
              chatbotVoiceStatus.textContent = "Voice input not supported in this browser.";
-             chatbotVoiceStatus.classList.add('active');
-             chatbotVoiceStatus.style.color = 'var(--gray)';
+             chatbotVoiceStatus.classList.add('active'); // Show the unsupported message
+             chatbotVoiceStatus.style.color = 'var(--gray)'; // Style the unsupported message
         }
     }
 
+    // Event listener for the new voice toggle button
     if(chatbotVoiceToggle) {
         chatbotVoiceToggle.addEventListener('click', () => {
             if (isRecognizingChatbot) {
                 chatbotRecognition.stop();
                  chatbotVoiceStatus.textContent = "Voice input stopped.";
-                 chatbotVoiceStatus.classList.remove('active');
+                 chatbotVoiceStatus.classList.remove('active'); // Hide status text on stop
             } else {
+                 // Clear previous input and status when starting voice input
                  chatbotInput.value = '';
                  chatbotVoiceStatus.textContent = "";
                  chatbotVoiceStatus.classList.remove('active');
                 chatbotRecognition.start();
+                 // The onstart event handles setting the status text and flag
             }
         });
     }
 
-    let initialGreetingSpoken = false; // Flag to track if the initial greeting has been spoken
 
+    // Chatbot toggle button logic
     chatbotToggle.addEventListener('click', () => {
-        chatbotContainer.classList.toggle('active');
-        // When chatbot is opened for the first time, trigger the initial greeting
-        if (chatbotContainer.classList.contains('active') && !initialGreetingSpoken) {
+        const isActive = chatbotContainer.classList.toggle('active');
+
+        // If chatbot is opened AND the initial greeting hasn't been spoken
+        if (isActive && !initialGreetingSpoken) {
             const initialMessageText = generateBotResponse("initial greeting");
             appendMessage(initialMessageText, 'bot-message');
+
             // Delay speaking the initial message slightly
             setTimeout(() => {
-                // Temporarily set flag to true for speaking the initial message
-                const tempMessageSentByVoice = messageSentByVoice; // Store current state
+                // Temporarily set messageSentByVoice to true just for this initial speaking
+                const tempMessageSentByVoiceState = messageSentByVoice; // Store current state
                 messageSentByVoice = true;
                 speakChatbotResponse(initialMessageText);
-                messageSentByVoice = tempMessageSentByVoice; // Restore original state
+                messageSentByVoice = tempMessageSentByVoiceState; // Restore original state
+
                 initialGreetingSpoken = true; // Mark greeting as spoken
-            }, 500); // Adjust delay as needed for the initial greeting
+            }, 500); // Adjust delay as needed
         }
 
         // Stop voice recognition and speech when chatbot is closed
-        if (!chatbotContainer.classList.contains('active')) {
+        if (!isActive) {
              if (isRecognizingChatbot) {
                 chatbotRecognition.stop();
              }
             chatbotVoiceStatus.textContent = "";
             chatbotVoiceStatus.classList.remove('active');
+            messageSentByVoice = false; // Reset flag on close
              // Stop any ongoing speech when chatbot is closed
             if (window.speechSynthesis && window.speechSynthesis.speaking) {
                  window.speechSynthesis.cancel();
@@ -441,6 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
          }
         chatbotVoiceStatus.textContent = "";
         chatbotVoiceStatus.classList.remove('active');
+        messageSentByVoice = false; // Reset flag on close
          // Stop any ongoing speech when chatbot is closed
         if (window.speechSynthesis && window.speechSynthesis.speaking) {
              window.speechSynthesis.cancel();
@@ -449,13 +477,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     chatbotSendButton.addEventListener('click', () => {
-         messageSentByVoice = false;
+         messageSentByVoice = false; // Explicitly set flag to false for typed messages
          sendMessage();
     });
 
     chatbotInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-             messageSentByVoice = false;
+             messageSentByVoice = false; // Explicitly set flag to false for typed messages
             sendMessage();
         }
     });
@@ -466,13 +494,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appendMessage(messageText, 'user-message');
         chatbotInput.value = '';
+         // Clear voice status after sending a message (both voice and text)
          chatbotVoiceStatus.textContent = "";
          chatbotVoiceStatus.classList.remove('active');
 
 
+        // Delay the bot's response to simulate thinking
         setTimeout(() => {
+            // Call the imported function to get the bot's response
             const botResponse = generateBotResponse(messageText);
 
+            // ONLY speak the response if the message was sent by voice
             if (messageSentByVoice) {
                  speakChatbotResponse(botResponse);
             }
@@ -481,23 +513,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Reset the flag AFTER the response has been processed (both text and optional speech)
             messageSentByVoice = false;
-        }, 800);
+        }, 800); // Adjust delay as needed
     }
 
     function appendMessage(text, type) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', type);
+        // Basic markdown-like formatting for bold
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // Handle line breaks
         formattedText = formattedText.replace(/\n/g, '<br>');
 
         messageElement.innerHTML = formattedText;
         chatbotMessages.appendChild(messageElement);
 
+        // Scroll to the latest message
         chatbotMessages.scrollTo({
             top: chatbotMessages.scrollHeight,
             behavior: 'smooth',
         });
 
+        // Optional: Add a subtle animation to new messages
         gsap.from(messageElement, {
             opacity: 0,
             y: 10,
@@ -505,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+     // Function to speak the chatbot's response
     function speakChatbotResponse(text) {
         const synth = window.speechSynthesis;
         if (!synth) {
@@ -512,27 +549,33 @@ document.addEventListener('DOMContentLoaded', () => {
              return;
         }
 
+        // Cancel any ongoing speech (in case the user types while bot is speaking)
         if (synth.speaking) {
             synth.cancel();
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
 
+        // Assign the selected voice if available
         if (selectedVoice) {
             utterance.voice = selectedVoice;
         } else {
-            selectVoice();
+            // If selectedVoice is null (voices not yet loaded or none found),
+            // try to populate voices and set the voice before speaking.
+            // This is a fallback for initial load timing issues.
+            selectVoice(); // Attempt to get voices again
             if (selectedVoice) {
                 utterance.voice = selectedVoice;
             } else {
                  console.warn("Still no suitable voice found after attempting to populate.");
+                 // Will use the browser's default voice
             }
         }
 
 
-        utterance.pitch = 1.1;
-        utterance.rate = 1.0;
-        utterance.lang = 'en-US';
+        utterance.pitch = 1.1; // Slightly different pitch for chatbot voice
+        utterance.rate = 1.0; // Standard rate
+        utterance.lang = 'en-US'; // Ensure language is set
 
          utterance.onerror = (event) => {
              console.error('Chatbot SpeechSynthesisUtterance error:', event);
@@ -542,6 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // THREE.js Globe Animation
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -551,35 +595,37 @@ document.addEventListener('DOMContentLoaded', () => {
     );
     const renderer = new THREE.WebGLRenderer({
         canvas: document.getElementById('globe'),
-        alpha: true,
+        alpha: true, // Make background transparent
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    const geometry = new THREE.SphereGeometry(5, 64, 64);
+    const geometry = new THREE.SphereGeometry(5, 64, 64); // Radius, width segments, height segments
     const material = new THREE.MeshBasicMaterial({
-        color: 0x6e00ff,
+        color: 0x6e00ff, // A purplish color
         transparent: true,
-        opacity: 0.1,
-        wireframe: true,
+        opacity: 0.1, // Make it semi-transparent
+        wireframe: true, // Display as a wireframe
     });
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
 
+    // Add particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 5000;
-    const posArray = new Float32Array(particlesCount * 3);
+    const particlesCount = 5000; // Number of particles
+    const posArray = new Float32Array(particlesCount * 3); // x, y, z for each particle
 
     for (let i = 0; i < particlesCount * 3; i++) {
+        // Positions are random within a cube, adjust range as needed
         posArray[i] = (Math.random() - 0.5) * 10;
     }
 
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
     const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.01,
-        color: 0x00e5ff,
-        blending: THREE.AdditiveBlending,
+        size: 0.01, // Size of each particle
+        color: 0x00e5ff, // Cyan color for particles
+        blending: THREE.AdditiveBlending, // For glowing effect
         transparent: true,
         opacity: 0.5,
     });
@@ -587,11 +633,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particleMesh);
 
-    camera.position.z = 15;
+    camera.position.z = 15; // Move camera back
 
     function animateGlobe() {
         requestAnimationFrame(animateGlobe);
 
+        // Rotate the globe and particles
         globe.rotation.y += 0.001;
         particleMesh.rotation.y += 0.001;
 
@@ -600,6 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animateGlobe();
 
+    // Handle window resize
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
@@ -607,6 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // particlesJS configuration (remains in script.js as it's tied to this specific canvas)
     particlesJS('particles-container', {
         particles: {
             number: {
@@ -629,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     nb_sides: 5,
                 },
                 image: {
-                    src: 'img/github.svg',
+                    src: 'img/github.svg', // Replace with actual image path if used
                     width: 100,
                     height: 100,
                 },
