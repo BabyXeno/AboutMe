@@ -2079,9 +2079,8 @@ body {
       font-size: var(--font-size-md);
     }
     .chatbot-container {
-      width: 95%;
-      left: 2.5%;
-      right: 2.5%;
+      width: 90%;
+      right: 5%;
       bottom: 70px;
       height: 350px;
     }
