@@ -320,6 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
             chatbotVoiceStatus.classList.add('active');
             chatbotVoiceToggle.classList.add('active');
             messageSentByVoice = true;
+            // Stop speech synthesis when recognition starts
+            window.speechSynthesis.cancel();
         };
 
         chatbotRecognition.onerror = (event) => {
@@ -370,6 +372,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 chatbotRecognition.start();
             }
+            // Stop speech synthesis when microphone is toggled
+            window.speechSynthesis.cancel();
         });
     }
     document.addEventListener('DOMContentLoaded', () => {
